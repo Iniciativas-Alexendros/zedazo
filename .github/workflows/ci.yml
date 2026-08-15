@@ -14,7 +14,7 @@ env:
 jobs:
   health:
     name: Health Check
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo "=== Runner health check ==="
@@ -27,7 +27,7 @@ jobs:
   check:
     name: Check (stable)
     needs: [health]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -37,7 +37,7 @@ jobs:
   msrv:
     name: Check (MSRV 1.80)
     needs: [health]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@1.80
@@ -47,7 +47,7 @@ jobs:
   fmt:
     name: Format
     needs: [health]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -58,7 +58,7 @@ jobs:
   clippy:
     name: Clippy
     needs: [check]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -70,7 +70,7 @@ jobs:
   test:
     name: Test
     needs: [check]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -80,7 +80,7 @@ jobs:
   doc:
     name: Doc
     needs: [check]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -90,7 +90,7 @@ jobs:
   coverage:
     name: Coverage
     needs: [test]
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
