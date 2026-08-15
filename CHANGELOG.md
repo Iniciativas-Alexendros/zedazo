@@ -7,6 +7,10 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Changed
+- Columna CSV: `CRIBADO_RESULT` → `CLASSIFY_RESULT` (inglés, coherente con cabeceras vCard; ADR-0014 I-12). JSON `zedazo_result` y props `X-ZEDAZO-*` sin cambio.
+- README: badge Coveralls oculto hasta [#25](https://github.com/Iniciativas-Alexendros/zedazo/issues/25).
+
 ## [0.2.0] - 2026-08-15
 
 ### Changed

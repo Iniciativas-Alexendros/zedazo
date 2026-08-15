@@ -173,6 +173,7 @@
 | I-09 | Sufijo salida help | `<input>_cribado.vcf` | `<input>_zedazo.vcf` | Cosmético |
 | I-10 | JSON export | `cribado_result` | `zedazo_result` | Breaking suave |
 | I-11 | Internos | `CribaError`, módulo `cribar`, dominio «cribado» | **Sin rename** | Explícito |
+| I-12 | CSV export | `CRIBADO_RESULT` | `CLASSIFY_RESULT` (inglés, coherente con cabeceras vCard; no marca) | Breaking suave |
 
 - Roadmap en el mismo PR: calidad (ex-v0.2.0) → **v0.3.0**; CardDAV/watch → **v0.4.0**.
 - Consecuencias: Breaking en crate name, props VCF y campo JSON; configs `[cribado]` siguen funcionando con deprecación; repo GitHub → `zedazo` (redirects).

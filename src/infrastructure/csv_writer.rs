@@ -19,7 +19,7 @@ pub fn export_csv(contacts: &[Contact], path: &Path) -> Result<(), CribaError> {
         "ADR",
         "CATEGORIES",
         "SOURCE",
-        "CRIBADO_RESULT",
+        "CLASSIFY_RESULT",
     ])?;
 
     for c in contacts {
@@ -158,9 +158,10 @@ mod tests {
         export_csv(&[contact], &path).unwrap();
 
         let content = fs::read_to_string(&path).unwrap();
-        assert!(content.contains("FN,N,ORG,TEL,EMAIL"));
+        assert!(content.contains("FN,N,ORG,TEL,EMAIL,ADR,CATEGORIES,SOURCE,CLASSIFY_RESULT"));
         assert!(content.contains("Juan Pérez"));
         assert!(content.contains("+34600000000"));
+        assert!(content.contains("conserved"));
 
         let _ = fs::remove_file(&path);
     }
