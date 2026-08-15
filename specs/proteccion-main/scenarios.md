@@ -2,27 +2,30 @@
 
 ## Happy paths
 
-| ID  | Escenario                                                      | Resultado esperado                     |
-|-----|----------------------------------------------------------------|----------------------------------------|
-| H1  | `make ci` en local pasa sin errores                            | Exit 0, 0 lint errors, 0 test failures |
-| H2  | PR #12 rebasado en main → CI verde                             | Todos los checks ✅                    |
-| H3  | PR #8 rebasado en main → CI verde                              | Todos los checks ✅                    |
-| H4  | Branch protection aplicada a main                              | Push directo denegado, PR requerido    |
-| H5  | `dependabot.yml` ignora dtolnay/rust-toolchain >=1.81          | No más PRs que suban MSRV             |
+| ID | Escenario | Resultado esperado |
+|----|-----------|-------------------|
+| H1 | `make ci` en local pasa | Exit 0 |
+| H2 | PR a `main` con CI verde | Checks ✅ |
+| H3 | Branch protection aplicada | Push directo denegado |
+| H4 | Renovate no propone `nom>=8` / `toml>=1` / `chardetng>=1` | Filtrado por `allowedVersions` |
+| H5 | Coverage sube LCOV a Coveralls | Job Coverage ✅ |
 
 ## Edge cases
 
-| ID  | Escenario                                                      | Resultado esperado                     |
-|-----|----------------------------------------------------------------|----------------------------------------|
-| E1  | PR #12 tiene conflictos de merge tras rebase                   | Resolver conflictos manualmente        |
-| E2  | PR #8 cambia dtolnay/rust-toolchain@1.80 → @1.99              | Rechazar el cambio, mantener 1.80      |
-| E3  | Branch protection bloquea merge sin CI verde                   | Merge imposible hasta CI pase          |
-| E4  | Dependabot genera nuevo PR con dtolnay/rust-toolchain >=1.81   | CI falla en MSRV job, revisar ignore   |
+| ID | Escenario | Resultado esperado |
+|----|-----------|-------------------|
+| E1 | PR con conflictos tras rebase | Resolver manualmente |
+| E2 | Renovate major de nom | PR sin automerge; requiere ADR + migración |
+| E3 | Merge sin CI verde | Bloqueado por branch protection |
 
 ## Errores esperados
 
-| ID  | Error                                                          | Manejo                                 |
-|-----|----------------------------------------------------------------|----------------------------------------|
-| R1  | GitHub API token sin permisos para branch protection           | Mostrar error, pedir token con repo:admin |
-| R2  | Self-hosted runner sin herramienta (cargo-tarpaulin, etc.)     | Instalar herramienta en runner          |
-| R3  | Doc warning por HTML tag no escapado                           | Añadir backticks en doc comment         |
+| ID | Error | Manejo |
+|----|-------|--------|
+| R1 | Token sin permisos de protection | Pedir `repo` admin |
+| R2 | Runner sin llvm-tools / cargo-llvm-cov | Instalar en runner self-hosted |
+| R3 | Coveralls badge org antigua | Actualizar README + proyecto Coveralls |
+
+## Histórico
+
+Los escenarios H2/H3/H5 relativos a Dependabot PRs #8/#12 están **archivados** (migración a Renovate, ADR-0007).

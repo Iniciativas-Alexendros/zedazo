@@ -29,14 +29,16 @@ src/interfaces/     # CLI (clap)
 tests/              # Tests de integración con fixtures VCF
 ```
 
-Ver [`docs/architecture.md`](docs/architecture.md) para la arquitectura completa.
+Ver [`ARCHITECTURE.md`](ARCHITECTURE.md) para la arquitectura completa.
 
 ## Antes de enviar un PR
 
 ```bash
+make hooks       # instalar pre-commit (fmt + clippy); ver `.githooks/install.sh`
 make ci          # fmt + clippy + test + check + doc
-make hooks       # instalar pre-commit hook
 ```
+
+Los hooks viven en [`.githooks/`](.githooks/) y se activan con `make hooks`. Documentos canónicos: [AGENTS.md](AGENTS.md), [SPECS.md](SPECS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ## Reportar bugs
 
