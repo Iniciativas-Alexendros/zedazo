@@ -7,6 +7,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Añadido
+- Taxonomía de clasificación ampliada a tres niveles (N1/N2/N3)
+- Soporte completo para tipos de teléfono T4 con mapeo desde vCard
+- Soporte para propiedades ADR (direcciones postales) en parser, `Contact`, writer y exports
+- Regla E3 de huérfanos actualizada para considerar direcciones
+- Módulos `domain::audit` y `domain::verification` (invariantes)
+
 ## [0.1.1] - 2026-08-15
 
 ### Corregido
