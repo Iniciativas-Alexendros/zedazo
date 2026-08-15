@@ -17,7 +17,7 @@
 
 | Dimensión | Estado |
 |-----------|--------|
-| Versión publicada | 0.1.0 en crates.io (`vcf-cribador`); **0.2.0** debut **Zedazo** (`zedazo`) en vuelo |
+| Versión publicada | `vcf-cribador` **0.1.2** (deprecado) · **Zedazo** `zedazo` **0.2.0** en crates.io |
 | Tests | 129+ (main); cobertura vía `cargo llvm-cov` → Coveralls |
 | CI | `ubuntu-latest` (#30; self-hosted cuando vuelva); Renovate |
 | Branch protection | Activa en `main` |
@@ -30,18 +30,19 @@
 **Criterio de salida:**
 - [x] `repository`/`homepage` y badges → org `Iniciativas-Alexendros`
 - [x] Sin `unwrap` panic-prone en `domain/` (C-01, C-02)
-- [ ] Tag `v0.1.1` + release.yml + crates.io (`vcf-cribador` aviso → `zedazo`)
+- [x] Tag `v0.1.1` + crates.io; aviso rename en **0.1.2** → `zedazo` (sin yank)
 
 ### v0.2.0 — Rename a Zedazo (migración + base phase4/5 ya en main) — M
 
 **Criterio de salida:**
-- [ ] Crate/binario `zedazo`; repo `Iniciativas-Alexendros/zedazo`
-- [ ] Props `X-ZEDAZO-*`, TOML `[zedazo]` (+ alias `[cribado]`), JSON `zedazo_result`
-- [ ] ADR-0014; CHANGELOG con tabla de migración
-- [ ] Subcomando `cribar` sin cambio (verbo de dominio)
-- [ ] `make ci` verde; docs canónicos alineados
+- [x] Crate/binario `zedazo`; repo `Iniciativas-Alexendros/zedazo`
+- [x] Props `X-ZEDAZO-*`, TOML `[zedazo]` (+ alias `[cribado]`), JSON `zedazo_result`
+- [x] ADR-0014; CHANGELOG con tabla de migración
+- [x] Subcomando `cribar` sin cambio (verbo de dominio)
+- [x] `make ci` verde; docs canónicos alineados
 - [x] Campo ADR + taxonomía N3 / tipos T4 (#28)
 - [x] Pipeline + config TOML enriquecida (#29)
+- [x] Tag `v0.2.0` + crates.io `zedazo`
 
 **Fuera de alcance v0.2.0:** CardDAV, marca registrada, dominio de pago.
 
