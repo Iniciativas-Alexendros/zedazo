@@ -119,7 +119,9 @@ pub fn deduplicate(contacts: Vec<Contact>) -> (Vec<Contact>, usize) {
         let mut sorted = indices.clone();
         sorted.sort_unstable_by(|a, b| b.cmp(a));
 
-        let base_idx = sorted.pop().unwrap();
+        let Some(base_idx) = sorted.pop() else {
+            continue;
+        };
         for &other_idx in &sorted {
             let other = merged[other_idx].take().expect("contacto ya absorbido");
             if let Some(ref mut base) = merged[base_idx] {
@@ -285,6 +287,14 @@ mod tests {
         let c = make_contact("u3", "Carol", "c@x.com", "+34600000003");
         let (result, count) = deduplicate(vec![a, b, c]);
         assert_eq!(result.len(), 3);
+        assert_eq!(count, 0);
+    }
+
+    #[test]
+    fn test_deduplicate_empty_input_no_panic() {
+        // Regresión C-02: clusters vacíos / entrada vacía no deben panic.
+        let (result, count) = deduplicate(vec![]);
+        assert!(result.is_empty());
         assert_eq!(count, 0);
     }
 

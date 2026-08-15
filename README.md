@@ -1,10 +1,10 @@
 # vcf-cribador
 
-[![CI](https://github.com/Alexendros/vcf-cribador/actions/workflows/ci.yml/badge.svg)](https://github.com/Alexendros/vcf-cribador/actions/workflows/ci.yml)
-[![Coverage](https://coveralls.io/repos/github/Alexendros/vcf-cribador/badge.svg)](https://coveralls.io/github/Alexendros/vcf-cribador)
-[![Security Audit](https://github.com/Alexendros/vcf-cribador/actions/workflows/audit.yml/badge.svg)](https://github.com/Alexendros/vcf-cribador/actions/workflows/audit.yml)
+[![CI](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/ci.yml)
+[![Coverage](https://coveralls.io/repos/github/Iniciativas-Alexendros/vcf-cribador/badge.svg)](https://coveralls.io/github/Iniciativas-Alexendros/vcf-cribador)
+[![Security Audit](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/audit.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/audit.yml)
 [![Crates.io](https://img.shields.io/crates/v/vcf-cribador?color=orange)](https://crates.io/crates/vcf-cribador)
-[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](LICENSE-MIT)
 [![MSRV](https://img.shields.io/badge/rustc-1.80+-blue.svg)](https://blog.rust-lang.org/2024/07/25/Rust-1.80.0.html)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -140,7 +140,7 @@ src/
 ## Desarrollo
 
 ```bash
-git clone https://github.com/Alexendros/vcf-cribador.git
+git clone https://github.com/Iniciativas-Alexendros/vcf-cribador.git
 cd vcf-cribador
 
 make hooks     # instalar pre-commit hooks
@@ -158,4 +158,4 @@ Ejecutamos `cargo audit` semanalmente vía GitHub Actions.
 
 ## Licencia
 
-MIT OR Apache-2.0 · Ver [`LICENSE`](LICENSE)
+MIT OR Apache-2.0 · Ver [`LICENSE-MIT`](LICENSE-MIT) y [`LICENSE-APACHE`](LICENSE-APACHE).

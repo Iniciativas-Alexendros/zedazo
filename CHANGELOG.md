@@ -7,7 +7,17 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
-## [0.1.0] - 2025-07-07
+## [0.1.1] - 2026-08-15
+
+### Corregido
+- Metadata `repository`/`homepage` en `Cargo.toml` tras transferencia a la org `Iniciativas-Alexendros`
+- Badges y enlaces del README apuntando a la cuenta personal antigua
+- Enlace de licencia dual (`LICENSE-MIT` / `LICENSE-APACHE`)
+- Fecha incorrecta de `0.1.0` en el changelog (2025 → 2026)
+- Panic potencial en `normalize_fn` al extraer roles (C-01)
+- Panic potencial en `deduplicate` al materializar clusters (C-02)
+
+## [0.1.0] - 2026-07-08
 
 ### Añadido
 - Pipeline completo de cribado: parsing → normalización → clasificación → screening → dedup → escritura
@@ -29,7 +39,8 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - Configuración externa TOML con soporte replace/append
 - CI/CD con GitHub Actions (check + fmt + clippy + test + doc)
 - Release automatizado con binario + SHA256
-- 132 tests unitarios y de integración
+- 129 tests unitarios y de integración
 
-[Unreleased]: https://github.com/Alexendros/vcf-cribador/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Alexendros/vcf-cribador/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Iniciativas-Alexendros/vcf-cribador/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/Iniciativas-Alexendros/vcf-cribador/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/Iniciativas-Alexendros/vcf-cribador/releases/tag/v0.1.0

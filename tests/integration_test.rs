@@ -1,8 +1,6 @@
 use std::fs;
 use std::path::PathBuf;
 use vcf_cribador::infrastructure::parser::{parse_vcards, unfold};
-use vcf_cribador::infrastructure::source::detect_source;
-use vcf_cribador::infrastructure::v3_compat::adapt_v3;
 
 fn fixture(name: &str) -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -228,7 +226,6 @@ fn test_empty_vcf_error() {
     use vcf_cribador::application::cribar;
     use vcf_cribador::error::CribaError;
 
-    let empty_path = fixture("sample-contacts.vcf");
     let empty_content = "";
     let empty_fixture = std::env::temp_dir().join("empty_test.vcf");
     std::fs::write(&empty_fixture, empty_content).unwrap();

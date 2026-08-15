@@ -25,8 +25,11 @@ pub fn normalize_fn(fn_val: &str) -> (String, Option<String>, Option<String>) {
     // N5: extraer cargos del final
     let role = extract_role(&remaining);
     if let Some(ref r) = role {
-        let pos = remaining.to_lowercase().rfind(&r.to_lowercase()).unwrap();
-        remaining = remaining[..pos].trim().to_string();
+        // Degradación graceful si el rol no aparece en `remaining`
+        // (casing/recorte previo): se conserva el role detectado sin panic.
+        if let Some(pos) = remaining.to_lowercase().rfind(&r.to_lowercase()) {
+            remaining = remaining[..pos].trim().to_string();
+        }
     }
 
     // N7: capitalización con respeto de siglas
@@ -303,6 +306,14 @@ mod tests {
         assert_eq!(fn_val, "Carlos Ruiz");
         assert_eq!(title, Some("Ilmo. Sr.".into()));
         assert_eq!(role, Some("Juez".into()));
+    }
+
+    #[test]
+    fn test_normalize_fn_role_case_insensitive_no_panic() {
+        // Regresión C-01: extracción de rol no debe panic si casing difiere.
+        let (fn_val, _, role) = normalize_fn("Ana López ABOGADA");
+        assert_eq!(role, Some("Abogada".into()));
+        assert_eq!(fn_val, "Ana López");
     }
 
     // ── normalize_tel ──
