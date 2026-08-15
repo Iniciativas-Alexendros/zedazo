@@ -158,7 +158,7 @@
 - Fecha: 2026-08-15
 - Contexto: `vcf-cribador` colisiona semánticamente con el verbo de dominio *cribar*; se busca marca de producto distinta (patrón Atlaps). `cedazo` descartado. Gate crates.io: `zedazo` libre (`ze/da/zedazo` → 404). TMview UE pendiente humano.
 - Decisión: Renombrar producto/crate/binario a **Zedazo** (`zedazo`) en release **v0.2.0** solo rename+migración. Internos de dominio (`CribaError`, módulo `cribar`, «cribado») sin rename.
-- Relacionado: issue [#32](https://github.com/Iniciativas-Alexendros/vcf-cribador/issues/32), [ROADMAP.md](./ROADMAP.md), [CHANGELOG.md](./CHANGELOG.md).
+- Relacionado: issue [#32](https://github.com/Iniciativas-Alexendros/zedazo/issues/32), [ROADMAP.md](./ROADMAP.md), [CHANGELOG.md](./CHANGELOG.md).
 
 | # | Elemento | Actual | Decisión | Tipo |
 |---|---|---|---|---|
@@ -167,7 +167,7 @@
 | I-03 | Sección TOML | `[cribado]` | `[zedazo]` + alias `[cribado]` con warning deprecación | Suave |
 | I-04 | Subcomando CLI | `cribar` | **Mantener** (verbo de dominio) | Sin cambio |
 | I-05 | Versión debut | — | **v0.2.0** = solo rename/migración | Estrategia |
-| I-06 | Crate antiguo | `vcf-cribador` 0.1.0 en crates.io | Publicar **0.1.1** final con aviso → `zedazo`; **sin yank** | Estrategia |
+| I-06 | Crate antiguo | `vcf-cribador` 0.1.0/0.1.1 en crates.io | Publicar **0.1.2** final con aviso → `zedazo`; **sin yank** | Estrategia |
 | I-07 | Metadata org | Ya `Iniciativas-Alexendros` | Solo actualizar path a `/zedazo` | Fix menor |
 | I-08 | Config file | `cribador.toml` | Doc → `zedazo.toml`; path libre vía `-c` | Docs + convención |
 | I-09 | Sufijo salida help | `<input>_cribado.vcf` | `<input>_zedazo.vcf` | Cosmético |
