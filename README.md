@@ -122,20 +122,21 @@ src/
 └── interfaces/      CLI (clap derive)
 ```
 
-→ [`docs/architecture.md`](docs/architecture.md)
+→ [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ## Documentación
 
-| Documento                                                      | Contenido                                            |
+| Documento | Contenido |
 | -------------------------------------------------------------- | ---------------------------------------------------- |
-| [`docs/spec.md`](docs/spec.md)                                 | Especificación, invariantes, criterios de aceptación |
+| [`SPECS.md`](SPECS.md)                                         | Especificación, invariantes, criterios de aceptación |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md)                           | Clean Architecture, CI/CD, capas                     |
+| [`ROADMAP.md`](ROADMAP.md)                                     | Hitos y criterios de salida                          |
+| [`DECISIONS.md`](DECISIONS.md)                                 | ADR con IDs estables                                 |
+| [`AGENTS.md`](AGENTS.md)                                       | Contrato para agentes de código                      |
 | [`docs/domain.md`](docs/domain.md)                             | Lenguaje ubicuo, entidades, rules                    |
-| [`docs/architecture.md`](docs/architecture.md)                 | Clean Architecture, CI/CD, capas                     |
-| [`docs/tasks.md`](docs/tasks.md)                               | Tareas, roadmap, estado del proyecto                 |
-| [`docs/implementation-guide.md`](docs/implementation-guide.md) | Guía de implementación por fases                     |
+| [`docs/implementation-guide.md`](docs/implementation-guide.md) | Guía de implementación (histórico MVP)               |
 | [`docs/test-plan.md`](docs/test-plan.md)                       | Estrategia de testing, fixtures                      |
 | [`docs/events.md`](docs/events.md)                             | Comandos, eventos                                    |
-| [`docs/adr/`](docs/adr/)                                       | Architecture Decision Records                        |
 
 ## Desarrollo
 

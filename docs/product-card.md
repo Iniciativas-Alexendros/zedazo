@@ -162,6 +162,8 @@ vcf-cribador cribar contactos.vcf -o limpio.vcf -a audit.tsv
 
 ## Enlaces
 
-- 🏠 GitHub: https://github.com/Alexendros/vcf-cribador
+- 🏠 GitHub: https://github.com/Iniciativas-Alexendros/vcf-cribador
 - 📦 crates.io: https://crates.io/crates/vcf-cribador
 - 📚 Documentación: https://docs.rs/vcf-cribador
+- 🔁 Dependencias: Renovate (no Dependabot)
+- 🧪 Cobertura: cargo-llvm-cov → Coveralls

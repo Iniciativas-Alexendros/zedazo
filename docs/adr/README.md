@@ -1,4 +1,11 @@
-# ADR-001: Salida canónica siempre vCard 4.0
+# Architecture Decision Records
+
+Los ADR canónicos con IDs estables (**ADR-0001…**) viven en **[DECISIONS.md](../../DECISIONS.md)** en la raíz.
+
+A continuación se conserva el texto histórico original (ADR-001…005).
+
+---
+
 
 **Fecha:** 2026-07-07
 **Estado:** Aceptado

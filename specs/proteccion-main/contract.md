@@ -29,30 +29,30 @@
 }
 ```
 
-## Dependabot contract
+Fuente operativa: [`docs/branch-protection.json`](../../docs/branch-protection.json).
 
-| Ecosistema | Ignorar                        | Razón                         |
-|------------|--------------------------------|-------------------------------|
-| cargo      | nom >=8, toml >=1, chardetng >=1, tempfile >=3.20 | Breaking changes |
-| github-actions | dtolnay/rust-toolchain >=1.81 | MSRV debe quedarse en 1.80 |
+## Renovate contract (sustituye Dependabot)
+
+Configuración: [`.github/renovate.json`](../../.github/renovate.json).
+
+| Ecosistema | Restricción | Razón |
+|------------|-------------|-------|
+| cargo | `nom` < 8 | Breaking (trait `Parser`) — ADR-0009 |
+| cargo | `toml` < 1 | Breaking — ADR-0009 |
+| cargo | `chardetng` < 1 | Breaking — ADR-0009 |
+| cargo | `tempfile` < 3.20 | Pin temporal |
+| github-actions | `dtolnay/rust-toolchain` < 1.100 | Evitar deriva MSRV accidental |
 
 ## CI requirements
 
-| Job           | Toolchain | Comando                             |
-|---------------|-----------|-------------------------------------|
-| Check (stable)| stable    | `cargo check --all-features`        |
-| Check (MSRV)  | 1.80      | `cargo check --all-features`        |
-| Format        | stable    | `cargo fmt --all -- --check`        |
-| Clippy        | stable    | `cargo clippy --all-features -- -D warnings` |
-| Test          | stable    | `cargo test --all-features`         |
-| Doc           | stable    | `cargo doc --no-deps --document-private-items` |
-| Coverage      | stable    | `cargo tarpaulin --out Lcov --output-dir coverage` |
+| Job | Toolchain | Comando |
+|-----|-----------|---------|
+| Check (stable) | stable | `cargo check --all-features` |
+| Check (MSRV) | 1.80 | `cargo check --all-features` |
+| Format | stable | `cargo fmt --all -- --check` |
+| Clippy | stable | `cargo clippy --all-features -- -D warnings` |
+| Test | stable | `cargo test --all-features` |
+| Doc | stable | `cargo doc --no-deps --document-private-items` |
+| Coverage | stable | `cargo llvm-cov --lcov --output-path coverage/lcov.info` → Coveralls |
 
-## Scripts de protección
-
-```bash
-# Aplicar branch protection a main
-gh api repos/:owner/:repo/branches/main/protection \
-  --method PUT \
-  --input branch-protection.json
-```
+Runners: `[self-hosted, ts]` (ADR-0008).
