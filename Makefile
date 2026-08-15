@@ -1,4 +1,4 @@
-.PHONY: all check test build release clean hooks version bump fmt clippy doc help
+.PHONY: all check test build release clean hooks version bump fmt clippy doc deny help
 
 CARGO := cargo
 BINARY := target/release/vcf-cribador
@@ -23,6 +23,10 @@ clean: ## Limpia artefactos de compilación
 	$(CARGO) clean
 
 ##@ Calidad
+
+deny: ## Licencias/advisories (cargo-deny; ADR-0013)
+	@command -v cargo-deny >/dev/null || (echo "Instala: cargo install cargo-deny" && exit 1)
+	cargo deny check
 
 fmt: ## Formatea el código
 	$(CARGO) fmt
