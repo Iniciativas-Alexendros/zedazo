@@ -1,15 +1,15 @@
 # SPECS.md
 
-**Versión:** 0.1.1  
+**Versión:** 0.2.0  
 **Fecha:** 2026-08-15  
-**Estado:** Aprobado (MVP v0.1.x)  
+**Estado:** Aprobado (MVP v0.1.x; rename v0.2.0)  
 **Canónico:** este archivo. [`docs/spec.md`](docs/spec.md) redirige aquí.
 
 ---
 
 ## 1. Visión
 
-**vcf-cribador** es un CLI Rust que criba, normaliza, clasifica y deduplica contactos VCF (vCard 4.0/3.0) exportados desde ProtonMail, Google Contacts y Apple iCloud. Procesamiento 100 % local, sin telemetría ni APIs externas.
+**Zedazo** (`zedazo`) es un CLI Rust que criba, normaliza, clasifica y deduplica contactos VCF (vCard 4.0/3.0) exportados desde ProtonMail, Google Contacts y Apple iCloud. Procesamiento 100 % local, sin telemetría ni APIs externas.
 
 ## 2. Objetivos
 

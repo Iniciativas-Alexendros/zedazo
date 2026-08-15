@@ -9,12 +9,14 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Default)]
 struct ConfigToml {
-    cribado: Option<CribadoToml>,
+    zedazo: Option<ZedazoToml>,
+    /// Alias deprecado de `[zedazo]` (ADR-0014 I-03).
+    cribado: Option<ZedazoToml>,
     clasificacion: Option<ClasificacionToml>,
 }
 
 #[derive(Debug, Deserialize)]
-struct CribadoToml {
+struct ZedazoToml {
     #[serde(default)]
     replace: bool,
     #[serde(default)]
@@ -62,6 +64,9 @@ impl Default for AppConfig {
 /// Carga `AppConfig` desde un archivo TOML.
 /// Si `path` es None, se usa la configuración por defecto.
 /// Las listas se añaden a las del default a menos que `replace = true`.
+///
+/// Preferencia de sección: `[zedazo]`; si solo existe `[cribado]`, se acepta
+/// con warning de deprecación (ADR-0014).
 pub fn load_config(path: Option<&Path>) -> Result<AppConfig, CribaError> {
     let Some(path) = path else {
         return Ok(AppConfig::default());
@@ -76,23 +81,35 @@ pub fn load_config(path: Option<&Path>) -> Result<AppConfig, CribaError> {
 
     let mut screening = ScreeningConfig::default();
 
-    if let Some(cribado) = config.cribado {
-        if let Some(prefijo) = cribado.prefijo_pais {
+    let section = match (config.zedazo, config.cribado) {
+        (Some(z), _) => Some(z),
+        (None, Some(c)) => {
+            tracing::warn!(
+                "La sección [cribado] está deprecada; migra a [zedazo] (ADR-0014). \
+                 Seguirás funcionando en esta versión."
+            );
+            Some(c)
+        }
+        (None, None) => None,
+    };
+
+    if let Some(zedazo) = section {
+        if let Some(prefijo) = zedazo.prefijo_pais {
             screening.prefijo_pais = prefijo;
         }
 
-        if cribado.replace {
-            screening.conservar_dominios = cribado.conservar_dominios;
-            screening.servicios_descontinuados = cribado.servicios_descontinuados;
-            screening.e2_keywords = cribado.e2_keywords;
+        if zedazo.replace {
+            screening.conservar_dominios = zedazo.conservar_dominios;
+            screening.servicios_descontinuados = zedazo.servicios_descontinuados;
+            screening.e2_keywords = zedazo.e2_keywords;
         } else {
             screening
                 .conservar_dominios
-                .extend(cribado.conservar_dominios);
+                .extend(zedazo.conservar_dominios);
             screening
                 .servicios_descontinuados
-                .extend(cribado.servicios_descontinuados);
-            screening.e2_keywords.extend(cribado.e2_keywords);
+                .extend(zedazo.servicios_descontinuados);
+            screening.e2_keywords.extend(zedazo.e2_keywords);
         }
     }
 
@@ -151,13 +168,13 @@ mod tests {
     }
 
     #[test]
-    fn test_load_toml_append() {
-        let toml_content = r#"[cribado]
+    fn test_load_toml_zedazo_append() {
+        let toml_content = r#"[zedazo]
 replace = false
 conservar_dominios = ["@gva.es"]
 e2_keywords = ["spam", "basura"]
 "#;
-        let path = write_toml("append", toml_content);
+        let path = write_toml("zedazo_append", toml_content);
 
         let config = load_config(Some(&path)).unwrap();
         assert!(config
@@ -168,11 +185,12 @@ e2_keywords = ["spam", "basura"]
 
         let _ = std::fs::remove_file(&path);
     }
+
     #[test]
-    fn test_load_toml_replace() {
+    fn test_load_toml_zedazo_replace() {
         let path = write_toml(
-            "replace",
-            r#"[cribado]
+            "zedazo_replace",
+            r#"[zedazo]
 replace = true
 prefijo_pais = "+44"
 conservar_dominios = ["@example.com"]
@@ -230,6 +248,29 @@ n3 = "FIXED"
         let config = load_config(Some(&path)).unwrap();
         assert_eq!(config.classification_rules.len(), 1);
         assert_eq!(config.classification_rules[0].n2, "PERS-FIX");
+
+        let _ = std::fs::remove_file(&path);
+    }
+
+    #[test]
+    fn test_load_toml_cribado_alias_deprecated() {
+        let path = write_toml(
+            "cribado_alias",
+            r#"[cribado]
+replace = true
+prefijo_pais = "+33"
+conservar_dominios = ["@legacy.fr"]
+e2_keywords = ["legacy"]
+"#,
+        );
+
+        let config = load_config(Some(&path)).unwrap();
+        assert_eq!(config.screening.prefijo_pais, "+33");
+        assert_eq!(
+            config.screening.conservar_dominios,
+            vec!["@legacy.fr".to_string()]
+        );
+        assert_eq!(config.screening.e2_keywords, vec!["legacy".to_string()]);
 
         let _ = std::fs::remove_file(&path);
     }

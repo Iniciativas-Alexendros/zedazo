@@ -1,4 +1,4 @@
-# vcf-cribador — Guía de implementación
+# Zedazo — Guía de implementación
 
 **Versión:** 0.1.1  
 **Fecha:** 2026-08-15

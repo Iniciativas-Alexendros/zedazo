@@ -14,7 +14,7 @@ Describe el error de forma clara y concisa.
 
 1. Comando ejecutado:
    ```
-   vcf-cribador ...
+   zedazo ...
    ```
 2. Archivo VCF de entrada (adjuntar versión anonimizada si contiene datos reales)
 3. Error observado

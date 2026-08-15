@@ -1,4 +1,4 @@
-# vcf-cribador — Modelo de dominio (DDD)
+# Zedazo — Modelo de dominio (DDD)
 
 **Versión:** 0.1.0
 **Fecha:** 2026-07-07

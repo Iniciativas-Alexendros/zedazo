@@ -1,0 +1,26 @@
+name: Publish legacy deprecation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish vcf-cribador 0.1.2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: publish/vcf-cribador-0.1.2
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Verify package name
+        run: |
+          grep -q 'name = "vcf-cribador"' Cargo.toml
+          grep -q 'version = "0.1.2"' Cargo.toml
+
+      - name: Publish
+        run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}

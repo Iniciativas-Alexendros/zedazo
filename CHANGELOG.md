@@ -7,6 +7,18 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-15
+
+### Changed
+- **Rename de producto:** `vcf-cribador` → **Zedazo** (crate/binario `zedazo`). Ver [ADR-0014](DECISIONS.md).
+- Props VCF de salida: `X-CRIBADO-*` → `X-ZEDAZO-*`
+- Sección TOML canónica: `[zedazo]` (alias `[cribado]` con warning de deprecación)
+- Campo JSON export: `cribado_result` → `zedazo_result`
+- Convención de config documentada: `zedazo.toml` (path libre vía `-c`)
+- Help CLI: sufijo de salida `<input>_zedazo.vcf`
+- URLs de repo/docs → `Iniciativas-Alexendros/zedazo`
+- ROADMAP: rename = **v0.2.0**; integraciones → **v0.4.0**
+
 ### Añadido
 - Taxonomía de clasificación ampliada a tres niveles (N1/N2/N3)
 - Soporte completo para tipos de teléfono T4 con mapeo desde vCard
@@ -14,6 +26,20 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - Regla E3 de huérfanos actualizada para considerar direcciones
 - Módulos `domain::audit` y `domain::verification` (invariantes)
 - Pipeline de aplicación conectado de extremo a extremo con configuración TOML enriquecida
+
+### Migración desde vcf-cribador
+
+| Elemento | Antes | Ahora |
+|---|---|---|
+| Instalar | `cargo install vcf-cribador` | `cargo install zedazo` |
+| Invocación | `vcf-cribador cribar …` | `zedazo cribar …` |
+| Props VCF | `X-CRIBADO-RESULT\|VERSION\|DATE` | `X-ZEDAZO-RESULT\|VERSION\|DATE` |
+| TOML | `[cribado]` | `[zedazo]` (alias `[cribado]` deprecado) |
+| Config file (docs) | `cribador.toml` | `zedazo.toml` |
+| JSON | `cribado_result` | `zedazo_result` |
+| Subcomando | `cribar` | `cribar` (sin cambio) |
+
+El crate `vcf-cribador` en crates.io permanece publicado (sin yank); la última línea 0.1.x apunta a `zedazo`.
 
 ## [0.1.1] - 2026-08-15
 
@@ -49,6 +75,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - Release automatizado con binario + SHA256
 - 129 tests unitarios y de integración
 
-[Unreleased]: https://github.com/Iniciativas-Alexendros/vcf-cribador/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/Iniciativas-Alexendros/vcf-cribador/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/Iniciativas-Alexendros/vcf-cribador/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Iniciativas-Alexendros/zedazo/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Iniciativas-Alexendros/zedazo/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/Iniciativas-Alexendros/zedazo/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/Iniciativas-Alexendros/zedazo/releases/tag/v0.1.0

@@ -5,9 +5,9 @@ use std::path::PathBuf;
 
 #[derive(Parser)]
 #[command(
-    name = "vcf-cribador",
+    name = "zedazo",
     version,
-    about = "Criba, normaliza y clasifica contactos VCF vCard 4.0/3.0 (Proton, Google, Apple)"
+    about = "Zedazo: criba, normaliza y clasifica contactos VCF vCard 4.0/3.0 (Proton, Google, Apple)"
 )]
 pub struct Cli {
     #[command(subcommand)]
@@ -21,7 +21,7 @@ pub enum Command {
         /// Archivo VCF de entrada
         input: PathBuf,
 
-        /// Archivo VCF de salida (defecto: <input>_cribado.vcf)
+        /// Archivo VCF de salida (defecto: <input>_zedazo.vcf)
         #[arg(short = 'o', long)]
         output: Option<PathBuf>,
 

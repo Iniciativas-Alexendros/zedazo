@@ -1,4 +1,4 @@
-# 📇 vcf-cribador — Ficha de producto v0.1.0
+# 📇 Zedazo — Ficha de producto v0.2.0
 
 ---
 
@@ -6,16 +6,16 @@
 
 | Campo | Valor |
 |-------|-------|
-| **Nombre** | vcf-cribador |
-| **Versión** | 0.1.0 |
+| **Nombre** | Zedazo |
+| **Versión** | 0.2.0 |
 | **Estado** | Publicado (crates.io + GitHub) |
 | **Licencia** | MIT OR Apache-2.0 (dual) |
 | **MSRV** | Rust 1.80+ |
 | **Lenguaje** | Rust (edition 2021) |
 | **Tipo** | CLI tool |
-| **Repositorio** | https://github.com/Alexendros/vcf-cribador |
-| **crates.io** | https://crates.io/crates/vcf-cribador |
-| **Documentación** | https://docs.rs/vcf-cribador |
+| **Repositorio** | https://github.com/Iniciativas-Alexendros/zedazo |
+| **crates.io** | https://crates.io/crates/zedazo |
+| **Documentación** | https://docs.rs/zedazo |
 | **Binario release** | 3.2 MB (Linux x86-64, stripped, LTO) |
 | **Líneas de código** | ~4,500 (src + tests) |
 | **Tests** | 129 (unitarios + integración) |
@@ -57,7 +57,7 @@ VCF → Parse → Normalize → Classify → Screen → Dedup → Write
 Archivo TOML opcional con soporte `replace` (reemplazar defaults) / `append` (añadir):
 
 ```toml
-[cribado]
+[zedazo]
 replace = false
 prefijo_pais = "+34"
 conservar_dominios = ["@example.org"]
@@ -68,7 +68,7 @@ e2_keywords = ["pharma", "jackpot"]
 
 | Formato | Dirección | Detalle |
 |---------|-----------|---------|
-| VCF 4.0 | Salida | FN, N, ORG, TEL, EMAIL, NOTE, X-CRIBADO-*, PRODID |
+| VCF 4.0 | Salida | FN, N, ORG, TEL, EMAIL, NOTE, X-ZEDAZO-*, PRODID |
 | VCF 3.0/4.0 | Entrada | Auto-detección Proton/Google/Apple |
 | TSV | Auditoría | 11 columnas (UID, FN, TEL, EMAIL, ORG, SOURCE, acción, regla, evidencia, merged_uids, categorías) |
 | CSV | Export | 8 columnas (FN, N, ORG, TEL, EMAIL, CATEGORIES, SOURCE, CRIBADO_RESULT) |
@@ -156,14 +156,14 @@ src/
 ## Uso rápido
 
 ```bash
-cargo install vcf-cribador
-vcf-cribador cribar contactos.vcf -o limpio.vcf -a audit.tsv
+cargo install zedazo
+zedazo cribar contactos.vcf -o limpio.vcf -a audit.tsv
 ```
 
 ## Enlaces
 
-- 🏠 GitHub: https://github.com/Iniciativas-Alexendros/vcf-cribador
-- 📦 crates.io: https://crates.io/crates/vcf-cribador
-- 📚 Documentación: https://docs.rs/vcf-cribador
+- 🏠 GitHub: https://github.com/Iniciativas-Alexendros/zedazo
+- 📦 crates.io: https://crates.io/crates/zedazo
+- 📚 Documentación: https://docs.rs/zedazo
 - 🔁 Dependencias: Renovate (no Dependabot)
 - 🧪 Cobertura: cargo-llvm-cov → Coveralls
