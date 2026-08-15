@@ -18,7 +18,7 @@
 | Dimensión | Estado |
 |-----------|--------|
 | Versión publicada | `vcf-cribador` **0.1.2** (deprecado) · **Zedazo** `zedazo` **0.2.0** en crates.io |
-| Tests | 129+ (main); cobertura vía `cargo llvm-cov` → Coveralls |
+| Tests | 145 (main); cobertura vía `cargo llvm-cov` → Coveralls (badge oculto hasta #25) |
 | CI | `ubuntu-latest` (#30; self-hosted cuando vuelva); Renovate |
 | Branch protection | Activa en `main` |
 | Backlog trazable | Issues GitHub (#32 rename) |
@@ -69,14 +69,6 @@
 - Benchmarks (criterion)
 - Cross-compile macOS/Windows — **bloqueado por decisión de release** (ADR pendiente: matrix GitHub-hosted vs `cargo-dist`)
 - Corpus de regresión >10k contactos
-
-## Ramas de trabajo rescatables
-
-| Rama | Contenido | Acción |
-|------|-----------|--------|
-| `feat/phase4-n3-t4-adr-clean` | N3, T4, ADR, `verification.rs` | Rebase + PR draft → v0.3.0 |
-| `feat/phase5-pipeline-toml` | phase4 + pipeline/TOML | Rebase tras phase4 → v0.3.0 |
-| `feat/phase4-n3-t4-adr` | Duplicado ruidoso | Cerrar tras adoptar `-clean` |
 
 ## Dependencias congeladas (ver DECISIONS)
 

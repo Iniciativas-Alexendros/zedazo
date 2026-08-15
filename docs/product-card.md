@@ -18,7 +18,7 @@
 | **Documentación** | https://docs.rs/zedazo |
 | **Binario release** | 3.2 MB (Linux x86-64, stripped, LTO) |
 | **Líneas de código** | ~4,500 (src + tests) |
-| **Tests** | 129 (unitarios + integración) |
+| **Tests** | 145 (unitarios + integración) |
 
 ## Descripción
 
@@ -71,7 +71,7 @@ e2_keywords = ["pharma", "jackpot"]
 | VCF 4.0 | Salida | FN, N, ORG, TEL, EMAIL, NOTE, X-ZEDAZO-*, PRODID |
 | VCF 3.0/4.0 | Entrada | Auto-detección Proton/Google/Apple |
 | TSV | Auditoría | 11 columnas (UID, FN, TEL, EMAIL, ORG, SOURCE, acción, regla, evidencia, merged_uids, categorías) |
-| CSV | Export | 8 columnas (FN, N, ORG, TEL, EMAIL, CATEGORIES, SOURCE, CRIBADO_RESULT) |
+| CSV | Export | 9 columnas (FN, N, ORG, TEL, EMAIL, ADR, CATEGORIES, SOURCE, CLASSIFY_RESULT) |
 | JSON | Export | Array completo con todos los campos de Contact |
 | TOML | Config | Reglas personalizadas de cribado |
 | ISO-8859-1 | Entrada | Transcodificación automática → UTF-8 |
@@ -134,7 +134,7 @@ src/
 | Dependabot | Cargo + Actions, semanal, ignora breaking changes |
 | Pre-commit | `cargo fmt --check` + `cargo clippy -D warnings` |
 | Linting | Clippy estricto sin warnings |
-| Tests | 129 tests (119 lib + 10 integración) con fixtures sintéticos |
+| Tests | 145 tests (135 lib + 10 integración) con fixtures sintéticos |
 
 ## Roadmap
 
