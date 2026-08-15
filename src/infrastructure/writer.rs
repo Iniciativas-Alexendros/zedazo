@@ -520,7 +520,7 @@ mod tests {
 
         let dir = std::env::temp_dir();
         let path = dir.join("test_write_vcf_basic.vcf");
-        write_vcf(&[contact.clone()], &map, &path, false).unwrap();
+        write_vcf(std::slice::from_ref(&contact), &map, &path, false).unwrap();
 
         let content = fs::read_to_string(&path).unwrap();
         assert!(content.contains("BEGIN:VCARD"));
