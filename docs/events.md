@@ -1,4 +1,4 @@
-# vcf-cribador — Comandos, eventos y excepciones
+# Zedazo — Comandos, eventos y excepciones
 
 **Versión:** 0.1.0
 **Fecha:** 2026-07-07

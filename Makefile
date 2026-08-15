@@ -1,7 +1,7 @@
 .PHONY: all check test build release clean hooks version bump fmt clippy doc deny help
 
 CARGO := cargo
-BINARY := target/release/vcf-cribador
+BINARY := target/release/zedazo
 
 ##@ Desarrollo
 
@@ -71,13 +71,13 @@ doc: ## Genera documentación
 completions: ## Genera scripts de autocompletado (bash/zsh/fish)
 	$(CARGO) build --release
 	mkdir -p completions
-	$(BINARY) completions bash > completions/vcf-cribador.bash
-	$(BINARY) completions zsh  > completions/_vcf-cribador
-	$(BINARY) completions fish > completions/vcf-cribador.fish
+	$(BINARY) completions bash > completions/zedazo.bash
+	$(BINARY) completions zsh  > completions/_zedazo
+	$(BINARY) completions fish > completions/zedazo.fish
 	@echo "Completions generados en completions/"
-	@echo "  bash: source completions/vcf-cribador.bash"
-	@echo "  zsh:  fpath+=(completions/_vcf-cribador)"
-	@echo "  fish: cp completions/vcf-cribador.fish ~/.config/fish/completions/"
+	@echo "  bash: source completions/zedazo.bash"
+	@echo "  zsh:  fpath+=(completions/_zedazo)"
+	@echo "  fish: cp completions/zedazo.fish ~/.config/fish/completions/"
 
 help: ## Muestra esta ayuda
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

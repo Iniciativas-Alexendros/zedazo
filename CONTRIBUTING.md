@@ -1,4 +1,4 @@
-# Contribuir a vcf-cribador
+# Contribuir a Zedazo
 
 ¡Gracias por tu interés en contribuir!
 
@@ -47,4 +47,4 @@ Usa la plantilla de [bug report](.github/ISSUE_TEMPLATE/bug_report.md). Incluye:
 - Comando exacto ejecutado
 - Archivo VCF de ejemplo (anonimizado si contiene datos reales)
 - Salida esperada vs obtenida
-- Versión de vcf-cribador (`vcf-cribador --help`)
+- Versión de Zedazo (`zedazo --help`)

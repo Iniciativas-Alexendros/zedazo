@@ -106,6 +106,11 @@ fn write_one_contact(
         write_prop(buf, &format_email(email))?;
     }
 
+    // ADR
+    for addr in &contact.addresses {
+        write_prop(buf, &format_address(addr))?;
+    }
+
     // TITLE
     if let Some(ref title) = contact.title {
         write_prop(buf, &format!("TITLE:{}", escape_vcard(title)))?;
@@ -144,19 +149,16 @@ fn write_one_contact(
         }
     }
 
-    // X-CRIBADO-*
+    // X-ZEDAZO-*
+    write_prop(buf, &format!("X-ZEDAZO-RESULT:{}", cribado_result(contact)))?;
     write_prop(
         buf,
-        &format!("X-CRIBADO-RESULT:{}", cribado_result(contact)),
-    )?;
-    write_prop(
-        buf,
-        &format!("X-CRIBADO-VERSION:{}", env!("CARGO_PKG_VERSION")),
+        &format!("X-ZEDAZO-VERSION:{}", env!("CARGO_PKG_VERSION")),
     )?;
     write_prop(
         buf,
         &format!(
-            "X-CRIBADO-DATE:{}",
+            "X-ZEDAZO-DATE:{}",
             jiff::Timestamp::now().strftime("%Y-%m-%dT%H:%M:%SZ")
         ),
     )?;
@@ -252,7 +254,29 @@ fn tel_type_to_str(t: TelType) -> &'static str {
         TelType::Home => "home",
         TelType::Work => "work",
         TelType::Main => "main",
+        TelType::Fax => "fax",
+        TelType::Pager => "pager",
+        TelType::Text => "text",
+        TelType::Video => "video",
         TelType::Other => "other",
+    }
+}
+
+fn format_address(addr: &crate::domain::contact::Address) -> String {
+    let parts = [
+        addr.po_box.as_str(),
+        addr.extended.as_str(),
+        addr.street.as_str(),
+        addr.locality.as_str(),
+        addr.region.as_str(),
+        addr.postal_code.as_str(),
+        addr.country.as_str(),
+    ];
+    let value = parts.join(";");
+    if addr.types.is_empty() {
+        format!("ADR:{}", escape_vcard(&value))
+    } else {
+        format!("ADR;TYPE={}:{}", addr.types.join(","), escape_vcard(&value))
     }
 }
 
@@ -344,6 +368,7 @@ mod tests {
             title: None,
             role: None,
             note: None,
+            addresses: vec![],
             categories: CategorySet::default(),
             source_detail: SourceDetail::Unknown(String::new()),
             decision: ScreeningDecision::Conserved,
@@ -504,9 +529,11 @@ mod tests {
             org_raw: None,
             emails_raw: vec![],
             tels_raw: vec![],
+            addresses_raw: vec![],
             title_raw: None,
             role_raw: None,
             note_raw: None,
+            rev_raw: None,
             photo_lines: vec![],
             logo_lines: vec![],
             sound_lines: vec![],
@@ -527,7 +554,7 @@ mod tests {
         assert!(content.contains("VERSION:4.0"));
         assert!(content.contains("FN:Juan Pérez"));
         assert!(content.contains("N:;;;;"));
-        assert!(content.contains("X-CRIBADO-RESULT:conserved"));
+        assert!(content.contains("X-ZEDAZO-RESULT:conserved"));
         assert!(content.contains("END:VCARD"));
 
         let _ = fs::remove_file(&path);
@@ -567,7 +594,7 @@ mod tests {
         let qpath = dir.join("test_quarantine_cuarentena.vcf");
         let qcontent = fs::read_to_string(&qpath).unwrap();
         assert!(qcontent.contains("BEGIN:VCARD"));
-        assert!(qcontent.contains("X-CRIBADO-RESULT:quarantine"));
+        assert!(qcontent.contains("X-ZEDAZO-RESULT:quarantine"));
 
         let _ = fs::remove_file(&path);
         let _ = fs::remove_file(&qpath);

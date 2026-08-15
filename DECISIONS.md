@@ -1,6 +1,6 @@
 # DECISIONS.md
 
-**Versión:** 0.1.1  
+**Versión:** 0.2.0  
 **Fecha:** 2026-08-15  
 **Canónico:** este archivo. [`docs/adr/README.md`](docs/adr/README.md) conserva el texto histórico de ADR-0001…0005 y apunta aquí para IDs nuevos.
 
@@ -148,5 +148,33 @@
 - Fecha: 2026-08-15
 - Decisión propuesta: Añadir `cargo deny check` en CI/Makefile; SBOM en release.
 - Relacionado: [ROADMAP.md](./ROADMAP.md) calidad post-0.1.1.
+
+</details>
+
+<details>
+<summary><strong>ADR-0014</strong> — Rename producto/crate a Zedazo</summary>
+
+- Estado: aceptada
+- Fecha: 2026-08-15
+- Contexto: `vcf-cribador` colisiona semánticamente con el verbo de dominio *cribar*; se busca marca de producto distinta (patrón Atlaps). `cedazo` descartado. Gate crates.io: `zedazo` libre (`ze/da/zedazo` → 404). TMview UE pendiente humano.
+- Decisión: Renombrar producto/crate/binario a **Zedazo** (`zedazo`) en release **v0.2.0** solo rename+migración. Internos de dominio (`CribaError`, módulo `cribar`, «cribado») sin rename.
+- Relacionado: issue [#32](https://github.com/Iniciativas-Alexendros/vcf-cribador/issues/32), [ROADMAP.md](./ROADMAP.md), [CHANGELOG.md](./CHANGELOG.md).
+
+| # | Elemento | Actual | Decisión | Tipo |
+|---|---|---|---|---|
+| I-01 | Crate + binario | `vcf-cribador` | `zedazo` | Breaking |
+| I-02 | Props VCF | `X-CRIBADO-*` | `X-ZEDAZO-*` | Breaking |
+| I-03 | Sección TOML | `[cribado]` | `[zedazo]` + alias `[cribado]` con warning deprecación | Suave |
+| I-04 | Subcomando CLI | `cribar` | **Mantener** (verbo de dominio) | Sin cambio |
+| I-05 | Versión debut | — | **v0.2.0** = solo rename/migración | Estrategia |
+| I-06 | Crate antiguo | `vcf-cribador` 0.1.0 en crates.io | Publicar **0.1.1** final con aviso → `zedazo`; **sin yank** | Estrategia |
+| I-07 | Metadata org | Ya `Iniciativas-Alexendros` | Solo actualizar path a `/zedazo` | Fix menor |
+| I-08 | Config file | `cribador.toml` | Doc → `zedazo.toml`; path libre vía `-c` | Docs + convención |
+| I-09 | Sufijo salida help | `<input>_cribado.vcf` | `<input>_zedazo.vcf` | Cosmético |
+| I-10 | JSON export | `cribado_result` | `zedazo_result` | Breaking suave |
+| I-11 | Internos | `CribaError`, módulo `cribar`, dominio «cribado» | **Sin rename** | Explícito |
+
+- Roadmap en el mismo PR: calidad (ex-v0.2.0) → **v0.3.0**; CardDAV/watch → **v0.4.0**.
+- Consecuencias: Breaking en crate name, props VCF y campo JSON; configs `[cribado]` siguen funcionando con deprecación; repo GitHub → `zedazo` (redirects).
 
 </details>

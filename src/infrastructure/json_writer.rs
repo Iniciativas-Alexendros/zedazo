@@ -17,11 +17,12 @@ struct ContactExport<'a> {
     org: Option<&'a str>,
     tels: Vec<String>,
     emails: Vec<String>,
+    addresses: Vec<String>,
     title: Option<&'a str>,
     role: Option<&'a str>,
     categories: Vec<String>,
     source: String,
-    cribado_result: &'a str,
+    zedazo_result: &'a str,
     screening_rule: &'a str,
 }
 
@@ -73,6 +74,22 @@ pub fn export_json(contacts: &[Contact], path: &Path) -> Result<(), CribaError> 
                 org: c.org.as_deref(),
                 tels: c.tels.iter().map(|t| t.value.clone()).collect(),
                 emails: c.emails.iter().map(|e| e.value.clone()).collect(),
+                addresses: c
+                    .addresses
+                    .iter()
+                    .map(|a| {
+                        format!(
+                            "{};{};{};{};{};{};{}",
+                            a.po_box,
+                            a.extended,
+                            a.street,
+                            a.locality,
+                            a.region,
+                            a.postal_code,
+                            a.country
+                        )
+                    })
+                    .collect(),
                 title: c.title.as_deref(),
                 role: c.role.as_deref(),
                 categories: {
@@ -87,7 +104,7 @@ pub fn export_json(contacts: &[Contact], path: &Path) -> Result<(), CribaError> 
                     cats
                 },
                 source: source.into(),
-                cribado_result: result,
+                zedazo_result: result,
                 screening_rule: &c.screening_rule,
             }
         })
@@ -124,6 +141,7 @@ mod tests {
             title: None,
             role: None,
             note: None,
+            addresses: vec![],
             categories: CategorySet::default(),
             source_detail: SourceDetail::Unknown(String::new()),
             decision: ScreeningDecision::Conserved,
@@ -156,6 +174,7 @@ mod tests {
             title: None,
             role: None,
             note: None,
+            addresses: vec![],
             categories: CategorySet::default(),
             source_detail: SourceDetail::Unknown(String::new()),
             decision: ScreeningDecision::Eliminated(crate::domain::screening::ElimCode::E1),
