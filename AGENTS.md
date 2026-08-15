@@ -1,6 +1,6 @@
 # AGENTS.md
 
-**Versión:** 0.1.1  
+**Versión:** 0.2.0  
 **Fecha:** 2026-08-15  
 **Propósito:** Contrato operativo para agentes de código en este repo.
 

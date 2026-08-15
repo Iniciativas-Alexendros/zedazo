@@ -149,19 +149,16 @@ fn write_one_contact(
         }
     }
 
-    // X-CRIBADO-*
+    // X-ZEDAZO-*
+    write_prop(buf, &format!("X-ZEDAZO-RESULT:{}", cribado_result(contact)))?;
     write_prop(
         buf,
-        &format!("X-CRIBADO-RESULT:{}", cribado_result(contact)),
-    )?;
-    write_prop(
-        buf,
-        &format!("X-CRIBADO-VERSION:{}", env!("CARGO_PKG_VERSION")),
+        &format!("X-ZEDAZO-VERSION:{}", env!("CARGO_PKG_VERSION")),
     )?;
     write_prop(
         buf,
         &format!(
-            "X-CRIBADO-DATE:{}",
+            "X-ZEDAZO-DATE:{}",
             jiff::Timestamp::now().strftime("%Y-%m-%dT%H:%M:%SZ")
         ),
     )?;
@@ -557,7 +554,7 @@ mod tests {
         assert!(content.contains("VERSION:4.0"));
         assert!(content.contains("FN:Juan Pérez"));
         assert!(content.contains("N:;;;;"));
-        assert!(content.contains("X-CRIBADO-RESULT:conserved"));
+        assert!(content.contains("X-ZEDAZO-RESULT:conserved"));
         assert!(content.contains("END:VCARD"));
 
         let _ = fs::remove_file(&path);
@@ -597,7 +594,7 @@ mod tests {
         let qpath = dir.join("test_quarantine_cuarentena.vcf");
         let qcontent = fs::read_to_string(&qpath).unwrap();
         assert!(qcontent.contains("BEGIN:VCARD"));
-        assert!(qcontent.contains("X-CRIBADO-RESULT:quarantine"));
+        assert!(qcontent.contains("X-ZEDAZO-RESULT:quarantine"));
 
         let _ = fs::remove_file(&path);
         let _ = fs::remove_file(&qpath);

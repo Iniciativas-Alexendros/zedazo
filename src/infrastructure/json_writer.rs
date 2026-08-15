@@ -22,7 +22,7 @@ struct ContactExport<'a> {
     role: Option<&'a str>,
     categories: Vec<String>,
     source: String,
-    cribado_result: &'a str,
+    zedazo_result: &'a str,
     screening_rule: &'a str,
 }
 
@@ -104,7 +104,7 @@ pub fn export_json(contacts: &[Contact], path: &Path) -> Result<(), CribaError> 
                     cats
                 },
                 source: source.into(),
-                cribado_result: result,
+                zedazo_result: result,
                 screening_rule: &c.screening_rule,
             }
         })

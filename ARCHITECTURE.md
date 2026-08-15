@@ -1,6 +1,6 @@
-# vcf-cribador — Arquitectura
+# Zedazo — Arquitectura
 
-**Versión:** 0.1.1
+**Versión:** 0.2.0
 **Fecha:** 2026-08-15
 **Canónico:** este archivo. [`docs/architecture.md`](docs/architecture.md) redirige aquí.
 
@@ -99,7 +99,7 @@ Regla de dependencia:
 **Módulos:**
 - `domain/rules.rs` — `ClassificationRule`, reglas estándar
 - `domain/classification.rs` — `classify()`, `CategorySet`
-- `infrastructure/config.rs` — carga de `cribador.toml`
+- `infrastructure/config.rs` — carga de `zedazo.toml` ([zedazo]; alias [cribado] deprecado)
 
 **Entrada:** `Vec<Contact>` + `Option<Config>`
 **Salida:** `Vec<Contact>` con `categories` poblado

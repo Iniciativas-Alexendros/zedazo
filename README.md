@@ -1,37 +1,41 @@
-# vcf-cribador
+# Zedazo
 
-[![CI](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/ci.yml)
-[![Coverage](https://coveralls.io/repos/github/Iniciativas-Alexendros/vcf-cribador/badge.svg)](https://coveralls.io/github/Iniciativas-Alexendros/vcf-cribador)
-[![Security Audit](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/audit.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/vcf-cribador/actions/workflows/audit.yml)
-[![Crates.io](https://img.shields.io/crates/v/vcf-cribador?color=orange)](https://crates.io/crates/vcf-cribador)
+[![CI](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/ci.yml)
+[![Coverage](https://coveralls.io/repos/github/Iniciativas-Alexendros/zedazo/badge.svg)](https://coveralls.io/github/Iniciativas-Alexendros/zedazo)
+[![Security Audit](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/audit.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/audit.yml)
+[![Crates.io](https://img.shields.io/crates/v/zedazo?color=orange)](https://crates.io/crates/zedazo)
 [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue)](LICENSE-MIT)
 [![MSRV](https://img.shields.io/badge/rustc-1.80+-blue.svg)](https://blog.rust-lang.org/2024/07/25/Rust-1.80.0.html)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+**Tu agenda, pasada por el zedazo fino.**
 
 Criba, normaliza, clasifica y deduplica contactos VCF exportados desde ProtonMail, Google Contacts o Apple iCloud.
 
 Limpia tus contactos VCF exportados desde **ProtonMail**, **Google Contacts** o **Apple iCloud** aplicando reglas deterministas de clasificación (C2-C6) y eliminación (E1-E3), deduplicación con cierre transitivo, y normalización de nombres y teléfonos.
 
+> Antes: `vcf-cribador`. Migración: ver [CHANGELOG 0.2.0](CHANGELOG.md#020---2026-08-15) y [ADR-0014](DECISIONS.md).
+
 ## Quick start
 
 ```bash
 # Instalar
-cargo install vcf-cribador
+cargo install zedazo
 
 # Cribar un archivo (conservados → limpio.vcf, trazabilidad → auditoría.tsv)
-vcf-cribador cribar mis-contactos.vcf -o limpio.vcf -a auditoria.tsv
+zedazo cribar mis-contactos.vcf -o limpio.vcf -a auditoria.tsv
 
 # Solo auditar sin modificar
-vcf-cribador audit mis-contactos.vcf -o auditoria.tsv
+zedazo audit mis-contactos.vcf -o auditoria.tsv
 
 # Estadísticas
-vcf-cribador stats limpio.vcf
-vcf-cribador stats limpio.vcf -f json
-vcf-cribador stats limpio.vcf -f markdown
+zedazo stats limpio.vcf
+zedazo stats limpio.vcf -f json
+zedazo stats limpio.vcf -f markdown
 
 # Exportar a CSV o JSON
-vcf-cribador export limpio.vcf -o contactos.csv
-vcf-cribador export limpio.vcf -o contactos.json -f json
+zedazo export limpio.vcf -o contactos.csv
+zedazo export limpio.vcf -o contactos.json -f json
 ```
 
 ## Configuración
@@ -39,8 +43,8 @@ vcf-cribador export limpio.vcf -o contactos.json -f json
 Opcional: crea un archivo TOML para personalizar el cribado.
 
 ```toml
-# cribador.toml
-[cribado]
+# zedazo.toml
+[zedazo]
 prefijo_pais = "+34"         # prefijo telefónico por defecto
 replace = false              # false = añade a los defaults, true = reemplaza
 conservar_dominios = [       # dominios de email que NUNCA se eliminan
@@ -62,8 +66,10 @@ n3 = "HW-MAKER"
 ```
 
 ```bash
-vcf-cribador cribar contactos.vcf --config cribador.toml
+zedazo cribar contactos.vcf --config zedazo.toml
 ```
+
+La sección `[cribado]` sigue aceptándose con un warning de deprecación.
 
 ## Pipeline
 
@@ -86,7 +92,7 @@ vcf-cribador cribar contactos.vcf --config cribador.toml
 ## Ejemplo real
 
 ```
-$ vcf-cribador cribar contacts-2025.vcf -o limpio.vcf -a audit.tsv
+$ zedazo cribar contacts-2025.vcf -o limpio.vcf -a audit.tsv
 
 === Estadísticas de cribado ===
 Total entrada:   475
@@ -151,8 +157,8 @@ src/
 ## Desarrollo
 
 ```bash
-git clone https://github.com/Iniciativas-Alexendros/vcf-cribador.git
-cd vcf-cribador
+git clone https://github.com/Iniciativas-Alexendros/zedazo.git
+cd zedazo
 
 make hooks     # instalar pre-commit hooks
 make ci        # fmt + clippy + test + doc

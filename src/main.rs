@@ -1,13 +1,13 @@
 use clap::{CommandFactory, Parser};
 use tracing_subscriber::EnvFilter;
-use vcf_cribador::application::audit;
-use vcf_cribador::application::cribar;
-use vcf_cribador::application::stats;
-use vcf_cribador::interfaces::cli::{Cli, Command};
+use zedazo::application::audit;
+use zedazo::application::cribar;
+use zedazo::application::stats;
+use zedazo::interfaces::cli::{Cli, Command};
 
 fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::from_default_env().add_directive("vcf_cribador=info".parse()?))
+        .with_env_filter(EnvFilter::from_default_env().add_directive("zedazo=info".parse()?))
         .init();
 
     let cli = Cli::parse();
@@ -49,10 +49,8 @@ fn main() -> anyhow::Result<()> {
         } => {
             let (_stats, contacts) = cribar::execute(&input, None, None, None, "auto", true)?;
             match format.as_str() {
-                "json" => {
-                    vcf_cribador::infrastructure::json_writer::export_json(&contacts, &output)?
-                }
-                _ => vcf_cribador::infrastructure::csv_writer::export_csv(&contacts, &output)?,
+                "json" => zedazo::infrastructure::json_writer::export_json(&contacts, &output)?,
+                _ => zedazo::infrastructure::csv_writer::export_csv(&contacts, &output)?,
             }
         }
         Command::Completions { shell } => {

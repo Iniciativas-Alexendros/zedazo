@@ -1,6 +1,6 @@
 use std::fs;
 use std::path::PathBuf;
-use vcf_cribador::infrastructure::parser::{parse_vcards, unfold};
+use zedazo::infrastructure::parser::{parse_vcards, unfold};
 
 fn fixture(name: &str) -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -9,7 +9,7 @@ fn fixture(name: &str) -> PathBuf {
         .join(name)
 }
 
-fn read_vcf_to_vcards(path: &PathBuf) -> Vec<vcf_cribador::infrastructure::parser::ParsedVCard> {
+fn read_vcf_to_vcards(path: &PathBuf) -> Vec<zedazo::infrastructure::parser::ParsedVCard> {
     let bytes = fs::read(path).expect("Unable to read fixture");
     let raw = String::from_utf8(bytes).expect("Fixture not valid UTF-8");
     let unfolded = unfold(&raw);
@@ -169,8 +169,8 @@ fn test_google_contacto_without_fn_has_uid_from_fallback() {
 
 #[test]
 fn test_pipeline_sample_dry_run() {
-    use vcf_cribador::application::cribar;
-    use vcf_cribador::domain::screening::ScreeningDecision;
+    use zedazo::application::cribar;
+    use zedazo::domain::screening::ScreeningDecision;
 
     let input = fixture("sample-contacts.vcf");
 
@@ -205,7 +205,7 @@ fn test_pipeline_sample_dry_run() {
 
 #[test]
 fn test_pipeline_google_dry_run() {
-    use vcf_cribador::application::cribar;
+    use zedazo::application::cribar;
 
     let input = fixture("google_contactos.vcf");
 
@@ -223,8 +223,8 @@ fn test_pipeline_google_dry_run() {
 
 #[test]
 fn test_empty_vcf_error() {
-    use vcf_cribador::application::cribar;
-    use vcf_cribador::error::CribaError;
+    use zedazo::application::cribar;
+    use zedazo::error::CribaError;
 
     let empty_content = "";
     let empty_fixture = std::env::temp_dir().join("empty_test.vcf");

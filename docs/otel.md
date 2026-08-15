@@ -1,6 +1,6 @@
 # Integración OpenTelemetry
 
-vcf-cribador usa `tracing` para logging estructurado. OpenTelemetry se integra como capa adicional de exportación de spans a colectores OTLP (SigNoz, Jaeger, Grafana Tempo, etc.).
+Zedazo usa `tracing` para logging estructurado. OpenTelemetry se integra como capa adicional de exportación de spans a colectores OTLP (SigNoz, Jaeger, Grafana Tempo, etc.).
 
 ## Activación
 
@@ -49,20 +49,20 @@ fn init_otel_subscriber() -> anyhow::Result<()> {
         .with_trace_config(
             opentelemetry_sdk::trace::Config::default().with_resource(
                 opentelemetry_sdk::Resource::new(vec![
-                    KeyValue::new("service.name", "vcf-cribador"),
+                    KeyValue::new("service.name", "zedazo"),
                     KeyValue::new("service.version", env!("CARGO_PKG_VERSION")),
                 ]),
             ),
         )
         .install_batch(opentelemetry_sdk::runtime::Tokio)?;
 
-    let tracer = opentelemetry::global::tracer_provider().tracer("vcf-cribador");
+    let tracer = opentelemetry::global::tracer_provider().tracer("zedazo");
     let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
 
     tracing_subscriber::registry()
         .with(telemetry)
         .with(tracing_subscriber::fmt::layer().with_env_filter(
-            EnvFilter::from_default_env().add_directive("vcf_cribador=info".parse()?),
+            EnvFilter::from_default_env().add_directive("zedazo=info".parse()?),
         ))
         .init();
 
@@ -81,7 +81,7 @@ cargo build --release --features otel
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4317"
-vcf-cribador cribar contactos.vcf -o limpio.vcf
+zedazo cribar contactos.vcf -o limpio.vcf
 ```
 
 Cada ejecución del pipeline generará spans jerárquicos:
