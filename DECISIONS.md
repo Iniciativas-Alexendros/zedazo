@@ -89,11 +89,12 @@
 <details>
 <summary><strong>ADR-0008</strong> — Runners self-hosted `[self-hosted, ts]`</summary>
 
-- Estado: aceptada
+- Estado: aceptada (enmienda operativa 2026-08-15)
 - Fecha: 2026-07
-- Decisión: CI/release Linux en runners propios; `publish` a crates.io en `ubuntu-latest`.
+- Decisión: CI/release Linux preferentemente en runners propios; `publish` a crates.io en `ubuntu-latest`.
+- Enmienda 2026-08-15: con **0 runners registrados**, los workflows pasaron a `ubuntu-latest` (#30) para desbloquear CI/release. Restaurar `[self-hosted, ts]` cuando el runner `ts` vuelva a estar online.
 - Consecuencias: Sin matrix multi-OS en CI; cross-compile v1.0 requiere ADR-0012.
-- Relacionado: [ARCHITECTURE.md](./ARCHITECTURE.md).
+- Relacionado: [ARCHITECTURE.md](./ARCHITECTURE.md), PR #30.
 
 </details>
 
