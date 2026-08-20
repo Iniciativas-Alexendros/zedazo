@@ -44,6 +44,19 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo check --all-features
 
+  msrv-verify:
+    name: Verify MSRV (cargo-msrv)
+    needs: [health]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install cargo-msrv
+        run: cargo install cargo-msrv --locked
+      - name: Verify MSRV
+        run: cargo msrv verify --min 1.80
+
   fmt:
     name: Format
     needs: [health]
@@ -87,6 +100,19 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo doc --no-deps --document-private-items
 
+  deny:
+    name: Deny (cargo-deny)
+    needs: [check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install cargo-deny
+        uses: EmbarkStudios/cargo-deny-action@v2
+      - name: Run cargo-deny
+        run: cargo deny check
+
   coverage:
     name: Coverage
     needs: [test]
@@ -102,7 +128,7 @@ jobs:
       - name: Generate coverage
         run: |
           mkdir -p coverage
-          cargo llvm-cov --lcov --output-path coverage/lcov.info
+          cargo llvm-cov --lcov --output-path coverage/lcov.info --fail-under-lines 80 --fail-under-regions 75
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
         with:

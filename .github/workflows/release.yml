@@ -7,43 +7,59 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  packages: write
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  release:
-    name: Release x86_64-unknown-linux-gnu
+  dist:
+    name: Release (cargo-dist)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-unknown-linux-gnu
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: Build release
-        run: cargo build --release --locked --target x86_64-unknown-linux-gnu
-
-      - name: Package
-        run: |
-          cd target/x86_64-unknown-linux-gnu/release
-          strip zedazo || true
-          tar czf zedazo-x86_64-unknown-linux-gnu.tar.gz zedazo
-          sha256sum zedazo-x86_64-unknown-linux-gnu.tar.gz > zedazo-x86_64-unknown-linux-gnu.tar.gz.sha256
-
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v3
+      - name: Generate dist manifest
+        id: manifest
+        uses: cargo-dist/action@main
         with:
+          install-cargo-dist: true
+          dist-dir: dist
+
+      - name: Generate SBOM
+        run: |
+          cargo install cargo-cyclonedx --locked
+          cargo cyclonedx --format json --override-filename sbom.json
+          mkdir -p dist
+          mv sbom.json.json dist/sbom.json
+          sha256sum dist/sbom.json > dist/sbom.json.sha256
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: dist/artifacts/*
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        if: ${{ steps.manifest.outputs.release-tag != '' }}
+        with:
+          tag_name: ${{ steps.manifest.outputs.release-tag }}
           files: |
-            target/x86_64-unknown-linux-gnu/release/zedazo-x86_64-unknown-linux-gnu.tar.gz
-            target/x86_64-unknown-linux-gnu/release/zedazo-x86_64-unknown-linux-gnu.tar.gz.sha256
+            dist/artifacts/*
+            dist/sbom.json
+            dist/sbom.json.sha256
 
   publish:
     name: Publish to crates.io
-    needs: release
+    needs: dist
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

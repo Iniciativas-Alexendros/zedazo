@@ -175,7 +175,7 @@ fn test_pipeline_sample_dry_run() {
     let input = fixture("sample-contacts.vcf");
 
     let (pipeline_stats, contacts) =
-        cribar::execute(&input, None, None, None, "auto", true).expect("Pipeline failed");
+        cribar::execute(&input, None, None, None, "auto", true, false).expect("Pipeline failed");
 
     assert!(pipeline_stats.total_entrada >= 5);
     assert!(pipeline_stats.conservados > 0);
@@ -210,7 +210,7 @@ fn test_pipeline_google_dry_run() {
     let input = fixture("google_contactos.vcf");
 
     let (stats, _contacts) =
-        cribar::execute(&input, None, None, None, "auto", true).expect("Pipeline failed");
+        cribar::execute(&input, None, None, None, "auto", true, false).expect("Pipeline failed");
 
     assert!(stats.total_entrada >= 3);
     assert!(stats.conservados > 0 || stats.eliminados > 0);
@@ -230,7 +230,140 @@ fn test_empty_vcf_error() {
     let empty_fixture = std::env::temp_dir().join("empty_test.vcf");
     std::fs::write(&empty_fixture, empty_content).unwrap();
 
-    let result = cribar::execute(&empty_fixture, None, None, None, "auto", true);
+    let result = cribar::execute(&empty_fixture, None, None, None, "auto", true, false);
     let _ = std::fs::remove_file(&empty_fixture);
     assert!(matches!(result, Err(CribaError::EmptyVcf)));
+}
+
+// ── New fixtures tests ──
+
+#[test]
+fn test_parse_iso_sample() {
+    let vcards = read_vcf_to_vcards(&fixture("iso_sample.vcf"));
+    assert_eq!(vcards.len(), 2);
+    for v in &vcards {
+        assert_eq!(v.version.as_deref(), Some("4.0"));
+        v.clone().to_contact().unwrap();
+    }
+}
+
+#[test]
+fn test_parse_duplicates() {
+    let vcards = read_vcf_to_vcards(&fixture("duplicates.vcf"));
+    assert_eq!(vcards.len(), 6);
+
+    let contacts: Vec<_> = vcards
+        .into_iter()
+        .map(|v| v.to_contact())
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
+
+    // Verificar que el D1 (mismo UID) se detecta
+    let uids: std::collections::HashSet<_> = contacts.iter().map(|c| c.uid.clone()).collect();
+    assert!(uids.len() < 6, "Should have duplicate UIDs");
+}
+
+#[test]
+fn test_parse_edge_cases() {
+    let vcards = read_vcf_to_vcards(&fixture("edge_cases.vcf"));
+    assert_eq!(vcards.len(), 6);
+
+    for v in &vcards {
+        let contact = v.clone().to_contact();
+        assert!(
+            contact.is_ok(),
+            "Failed to convert edge case: {:?}",
+            v.fn_raw
+        );
+    }
+}
+
+#[test]
+fn test_parse_proton_sample() {
+    let vcards = read_vcf_to_vcards(&fixture("proton_sample.vcf"));
+    assert_eq!(vcards.len(), 5);
+
+    let proton_count = vcards
+        .iter()
+        .filter(|v| v.prodid.as_deref().unwrap_or("").contains("ProtonMail"))
+        .count();
+    assert_eq!(proton_count, 5);
+
+    let autosave = vcards
+        .iter()
+        .filter(|v| v.uid.as_deref().unwrap_or("").contains("autosave"))
+        .count();
+    let import = vcards
+        .iter()
+        .filter(|v| v.uid.as_deref().unwrap_or("").contains("import"))
+        .count();
+    let web = vcards
+        .iter()
+        .filter(|v| v.uid.as_deref().unwrap_or("").contains("web"))
+        .count();
+
+    assert_eq!(autosave, 2);
+    assert_eq!(import, 2);
+    assert_eq!(web, 1);
+}
+
+#[test]
+fn test_pipeline_duplicates_dry_run() {
+    use zedazo::application::cribar;
+
+    let input = fixture("duplicates.vcf");
+
+    let (stats, _contacts) =
+        cribar::execute(&input, None, None, None, "auto", true, false).expect("Pipeline failed");
+
+    assert_eq!(stats.total_entrada, 6);
+    // D1 + transitivos deberían fusionarse
+    assert!(stats.fusionados > 0);
+}
+
+#[test]
+fn test_pipeline_edge_cases_dry_run() {
+    use zedazo::application::cribar;
+
+    let input = fixture("edge_cases.vcf");
+
+    let (stats, contacts) =
+        cribar::execute(&input, None, None, None, "auto", true, false).expect("Pipeline failed");
+
+    assert_eq!(stats.total_entrada, 6);
+    // Contacto con email-only en FN debería ser E1
+    println!("Stats: {:?}", stats);
+    for c in &contacts {
+        println!(
+            "Contact: FN={}, Decision={:?}, ORG={:?}",
+            c.fn_value, c.decision, c.org
+        );
+    }
+    assert!(stats.eliminados > 0);
+}
+
+#[test]
+fn test_pipeline_proton_dry_run() {
+    use zedazo::application::cribar;
+
+    let input = fixture("proton_sample.vcf");
+
+    let (stats, contacts) =
+        cribar::execute(&input, None, None, None, "auto", true, false).expect("Pipeline failed");
+
+    assert_eq!(stats.total_entrada, 5);
+    assert!(stats.conservados > 0);
+
+    // Verificar source_detail correcto
+    let sources: Vec<_> = contacts.iter().map(|c| c.source_detail.clone()).collect();
+    println!("Sources: {:?}", sources);
+    assert!(sources
+        .iter()
+        .any(|s| matches!(s, zedazo::domain::contact::SourceDetail::ProtonAutosave)));
+    assert!(sources
+        .iter()
+        .any(|s| matches!(s, zedazo::domain::contact::SourceDetail::ProtonImport)));
+    assert!(sources
+        .iter()
+        .any(|s| matches!(s, zedazo::domain::contact::SourceDetail::ProtonWeb)));
 }
