@@ -20,6 +20,7 @@ fn main() -> anyhow::Result<()> {
             config,
             source,
             dry_run,
+            strict,
         } => {
             let (stats, _contacts) = cribar::execute(
                 &input,
@@ -28,6 +29,7 @@ fn main() -> anyhow::Result<()> {
                 config.as_deref(),
                 &source,
                 dry_run,
+                strict,
             )?;
 
             println!("{}", stats);
@@ -47,7 +49,8 @@ fn main() -> anyhow::Result<()> {
             output,
             format,
         } => {
-            let (_stats, contacts) = cribar::execute(&input, None, None, None, "auto", true)?;
+            let (_stats, contacts) =
+                cribar::execute(&input, None, None, None, "auto", true, false)?;
             match format.as_str() {
                 "json" => zedazo::infrastructure::json_writer::export_json(&contacts, &output)?,
                 _ => zedazo::infrastructure::csv_writer::export_csv(&contacts, &output)?,

@@ -2,6 +2,9 @@
 
 use std::path::Path;
 
+use crate::domain::pipeline::{
+    ClassificationRuleProvider, PipelineConfigProvider, ScreeningConfigProvider,
+};
 use crate::domain::rules::ClassificationRule;
 use crate::domain::screening::ScreeningConfig;
 use crate::error::CribaError;
@@ -144,6 +147,23 @@ pub fn load_config(path: Option<&Path>) -> Result<AppConfig, CribaError> {
         classification_rules,
     })
 }
+
+/// Implementación de ScreeningConfigProvider para AppConfig.
+impl ScreeningConfigProvider for AppConfig {
+    fn screening_config(&self) -> &ScreeningConfig {
+        &self.screening
+    }
+}
+
+/// Implementación de ClassificationRuleProvider para AppConfig.
+impl ClassificationRuleProvider for AppConfig {
+    fn classification_rules(&self) -> &[ClassificationRule] {
+        &self.classification_rules
+    }
+}
+
+/// Implementación de PipelineConfigProvider para AppConfig (blanket impl).
+impl PipelineConfigProvider for AppConfig {}
 
 // ── tests ──
 

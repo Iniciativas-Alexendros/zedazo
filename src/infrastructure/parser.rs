@@ -143,6 +143,7 @@ impl ParsedVCard {
             decision: ScreeningDecision::Conserved,
             screening_rule: String::new(),
             merged_uids: vec![],
+            adr_field: None,
         })
     }
 }
@@ -810,5 +811,50 @@ mod tests {
         let contact = vcard.to_contact().unwrap();
         assert_eq!(contact.tels[0].tel_type, TelType::Cell);
         assert!(!contact.tels[0].normalized);
+    }
+
+    #[test]
+    fn test_map_tel_type_variants() {
+        assert_eq!(map_tel_type(&["CELL".to_string()]), TelType::Cell);
+        assert_eq!(map_tel_type(&["MOBILE".to_string()]), TelType::Cell);
+        assert_eq!(map_tel_type(&["IPHONE".to_string()]), TelType::Cell);
+        assert_eq!(map_tel_type(&["CAR".to_string()]), TelType::Cell);
+
+        assert_eq!(map_tel_type(&["HOME".to_string()]), TelType::Home);
+        assert_eq!(map_tel_type(&["DOM".to_string()]), TelType::Home);
+
+        assert_eq!(map_tel_type(&["WORK".to_string()]), TelType::Work);
+        assert_eq!(map_tel_type(&["OFICINA".to_string()]), TelType::Work);
+
+        assert_eq!(map_tel_type(&["MAIN".to_string()]), TelType::Main);
+        assert_eq!(map_tel_type(&["PREF".to_string()]), TelType::Main);
+
+        assert_eq!(map_tel_type(&["FAX".to_string()]), TelType::Fax);
+        assert_eq!(map_tel_type(&["PAGER".to_string()]), TelType::Pager);
+        assert_eq!(map_tel_type(&["TEXT".to_string()]), TelType::Text);
+        assert_eq!(map_tel_type(&["VIDEO".to_string()]), TelType::Video);
+
+        // Case insensitive
+        assert_eq!(map_tel_type(&["cell".to_string()]), TelType::Cell);
+        assert_eq!(map_tel_type(&["Home".to_string()]), TelType::Home);
+        assert_eq!(map_tel_type(&["Work".to_string()]), TelType::Work);
+
+        // Multiple types - first match in input order wins
+        assert_eq!(
+            map_tel_type(&["CELL".to_string(), "WORK".to_string()]),
+            TelType::Cell
+        );
+        assert_eq!(
+            map_tel_type(&["WORK".to_string(), "CELL".to_string()]),
+            TelType::Work
+        );
+        assert_eq!(
+            map_tel_type(&["HOME".to_string(), "WORK".to_string()]),
+            TelType::Home
+        );
+
+        // Unknown type
+        assert_eq!(map_tel_type(&["UNKNOWN".to_string()]), TelType::Other);
+        assert_eq!(map_tel_type(&[]), TelType::Other);
     }
 }

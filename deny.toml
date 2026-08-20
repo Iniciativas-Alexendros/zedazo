@@ -1,28 +1,112 @@
-# cargo-deny — ver ADR-0013 (propuesta) en DECISIONS.md
-# Uso: cargo deny check  |  make deny
+# cargo-deny configuration for Zedazo
+# Ver ADR-0013 (propuesta) en DECISIONS.md
 
 [advisories]
-yanked = "warn"
+ignore = []
 
 [licenses]
 allow = [
-  "MIT",
-  "Apache-2.0",
-  "Apache-2.0 WITH LLVM-exception",
-  "BSD-2-Clause",
-  "BSD-3-Clause",
-  "ISC",
-  "Unicode-3.0",
-  "Zlib",
-  "Unicode-DFS-2016",
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Unicode-DFS-2016",
+    "Zlib",
 ]
-confidence-threshold = 0.8
 
 [bans]
 multiple-versions = "warn"
-wildcards = "allow"
+deny = []
+allow = [
+    { name = "proc-macro2", reason = "común en derive macros" },
+    { name = "unicode-ident", reason = "común en proc-macros" },
+    { name = "syn", reason = "parser Rust, múltiples versiones inevitables" },
+    { name = "quote", reason = "codegen, múltiples versiones inevitables" },
+    { name = "smallvec", reason = "optimización común" },
+    { name = "aho-corasick", reason = "regex dependency" },
+    { name = "regex", reason = "clasificación" },
+    { name = "regex-automata", reason = "regex dependency" },
+    { name = "regex-syntax", reason = "regex dependency" },
+    { name = "memchr", reason = "string search" },
+    { name = "unicode-ident", reason = "proc-macro dependency" },
+    { name = "thiserror", reason = "error handling" },
+    { name = "thiserror-impl", reason = "thiserror dependency" },
+    { name = "anyhow", reason = "error handling" },
+    { name = "serde", reason = "serialization" },
+    { name = "serde_core", reason = "serde dependency" },
+    { name = "serde_derive", reason = "serde dependency" },
+    { name = "serde_json", reason = "JSON export" },
+    { name = "serde_spanned", reason = "toml dependency" },
+    { name = "toml", reason = "config parsing" },
+    { name = "toml_datetime", reason = "toml dependency" },
+    { name = "toml_parser", reason = "toml dependency" },
+    { name = "toml_writer", reason = "toml dependency" },
+    { name = "winnow", reason = "toml dependency" },
+    { name = "nom", reason = "VCF parsing" },
+    { name = "minimal-lexical", reason = "nom dependency" },
+    { name = "csv", reason = "CSV export" },
+    { name = "csv-core", reason = "csv dependency" },
+    { name = "ryu", reason = "csv dependency" },
+    { name = "itoa", reason = "csv/serde dependency" },
+    { name = "encoding_rs", reason = "encoding detection" },
+    { name = "chardetng", reason = "encoding detection" },
+    { name = "clap", reason = "CLI" },
+    { name = "clap_builder", reason = "clap dependency" },
+    { name = "clap_complete", reason = "completions" },
+    { name = "clap_derive", reason = "clap dependency" },
+    { name = "clap_lex", reason = "clap dependency" },
+    { name = "heck", reason = "clap dependency" },
+    { name = "anstream", reason = "clap dependency" },
+    { name = "anstyle", reason = "clap dependency" },
+    { name = "anstyle-parse", reason = "clap dependency" },
+    { name = "anstyle-query", reason = "clap dependency" },
+    { name = "anstyle-wincon", reason = "clap dependency" },
+    { name = "colorchoice", reason = "clap dependency" },
+    { name = "is_terminal_polyfill", reason = "clap dependency" },
+    { name = "once_cell_polyfill", reason = "clap dependency" },
+    { name = "utf8parse", reason = "clap dependency" },
+    { name = "jiff", reason = "timestamps" },
+    { name = "jiff-core", reason = "jiff dependency" },
+    { name = "jiff-tzdb", reason = "jiff dependency" },
+    { name = "jiff-tzdb-platform", reason = "jiff dependency" },
+    { name = "portable-atomic", reason = "jiff dependency" },
+    { name = "portable-atomic-util", reason = "jiff dependency" },
+    { name = "tracing", reason = "logging" },
+    { name = "tracing-core", reason = "tracing dependency" },
+    { name = "tracing-subscriber", reason = "logging" },
+    { name = "tracing-attributes", reason = "tracing dependency" },
+    { name = "tracing-log", reason = "tracing dependency" },
+    { name = "tracing-log", reason = "tracing dependency" },
+    { name = "sharded-slab", reason = "tracing dependency" },
+    { name = "matchers", reason = "tracing dependency" },
+    { name = "nu-ansi-term", reason = "tracing dependency" },
+    { name = "pin-project-lite", reason = "tracing dependency" },
+    { name = "thread_local", reason = "tracing dependency" },
+    { name = "lazy_static", reason = "tracing dependency" },
+    { name = "valico", reason = "tracing dependency" },
+    { name = "strsim", reason = "fuzzy matching D6" },
+    { name = "tempfile", reason = "dev dependency" },
+    { name = "once_cell", reason = "tempfile dependency" },
+    { name = "fastrand", reason = "tempfile dependency" },
+    { name = "getrandom", reason = "tempfile dependency" },
+    { name = "cfg-if", reason = "tempfile dependency" },
+    { name = "r-efi", reason = "tempfile dependency" },
+    { name = "errno", reason = "tempfile dependency" },
+    { name = "rustix", reason = "tempfile dependency" },
+    { name = "linux-raw-sys", reason = "tempfile dependency" },
+    { name = "windows-sys", reason = "tempfile dependency" },
+    { name = "windows-link", reason = "tempfile dependency" },
+    { name = "bitflags", reason = "tempfile dependency" },
+    { name = "libc", reason = "tempfile dependency" },
+    { name = "log", reason = "tracing dependency" },
+    { name = "dev", reason = "dev dependencies" },
+    { name = "zedazo", reason = "crate raíz" },
+    { name = "zmij", reason = "serde_json dependency" },
+]
 
 [sources]
 unknown-registry = "deny"
-unknown-git = "warn"
-allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+unknown-git = "deny"

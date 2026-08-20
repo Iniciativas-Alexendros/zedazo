@@ -40,6 +40,10 @@ pub enum Command {
         /// Modo dry-run: analiza sin escribir salida
         #[arg(long)]
         dry_run: bool,
+
+        /// Modo estricto: falla en invariantes críticas I1, I2, I3
+        #[arg(long)]
+        strict: bool,
     },
 
     /// Solo audita: analiza el VCF sin modificarlo

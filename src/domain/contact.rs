@@ -25,6 +25,9 @@ pub struct Contact {
     pub decision: super::screening::ScreeningDecision,
     pub screening_rule: String,
     pub merged_uids: Vec<String>,
+    /// Campo ADR: decisión manual de rescate/cuarentena (ADR-XXXX).
+    /// Formato: "ADR-XXXX:motivo" o vacío si no hay decisión manual.
+    pub adr_field: Option<String>,
 }
 
 /// Componentes estructurados del nombre (RFC 6350).
@@ -85,6 +88,9 @@ pub struct CategorySet {
     pub n1: HashSet<String>,
     pub n2: HashSet<String>,
     pub n3: Vec<String>,
+    /// Campo ADR: decisiones manuales de rescate/cuarentena (ADR-XXXX).
+    /// Formato: "ADR-XXXX:motivo" o vacío si no hay decisión manual.
+    pub adr_field: Option<String>,
 }
 
 impl CategorySet {

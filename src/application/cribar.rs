@@ -10,9 +10,11 @@ use crate::domain::classification::classify;
 use crate::domain::contact::Contact;
 use crate::domain::identity::deduplicate;
 use crate::domain::normalization::{normalize_fn, normalize_org, normalize_tel};
+use crate::domain::pipeline::{ClassificationRuleProvider, ScreeningConfigProvider};
 use crate::domain::screening::{decide, ScreeningDecision};
-use crate::domain::verification::verify;
+use crate::domain::verification::{verify, InvariantError};
 use crate::error::CribaError;
+
 use crate::infrastructure::config::load_config;
 use crate::infrastructure::encoding::ensure_utf8;
 use crate::infrastructure::parser::{parse_vcards, unfold};
@@ -20,6 +22,24 @@ use crate::infrastructure::source::{detect_source, detect_version};
 use crate::infrastructure::tsv_writer::write_audit_tsv;
 use crate::infrastructure::v3_compat::adapt_v3;
 use crate::infrastructure::writer::write_vcf;
+
+/// Wrapper para errores de invariantes críticas que implementa Error + Display.
+#[derive(Debug)]
+struct CriticalInvariantErrors(Vec<InvariantError>);
+
+impl std::fmt::Display for CriticalInvariantErrors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for (i, err) in self.0.iter().enumerate() {
+            if i > 0 {
+                write!(f, "; ")?;
+            }
+            write!(f, "{}", err)?;
+        }
+        Ok(())
+    }
+}
+
+impl std::error::Error for CriticalInvariantErrors {}
 
 /// Ejecuta el pipeline completo de cribado.
 /// Retorna estadísticas y los contactos procesados tras la deduplicación.
@@ -30,6 +50,7 @@ pub fn execute(
     config: Option<&Path>,
     source_override: &str,
     dry_run: bool,
+    strict: bool,
 ) -> Result<(Stats, Vec<Contact>), CribaError> {
     tracing::info!("Leyendo archivo: {}", input.display());
     let bytes = fs::read(input)?;
@@ -56,34 +77,14 @@ pub fn execute(
         vcard_map.insert(vcard.compute_uid(), vcard);
     }
 
-    // 5. Detectar fuente y versión
-    let prodids: Vec<String> = vcards.iter().filter_map(|v| v.prodid.clone()).collect();
-    let uids: Vec<String> = vcards.iter().filter_map(|v| v.uid.clone()).collect();
+    // 5. Detectar versión vCard
     let versions: Vec<String> = vcards.iter().filter_map(|v| v.version.clone()).collect();
-
-    let detected_source = detect_source(&prodids, &uids);
     let detected_version = detect_version(&versions);
-    tracing::info!(
-        "Fuente detectada: {:?}, versión: {}",
-        detected_source,
-        detected_version
-    );
+    tracing::info!("Versión vCard detectada: {}", detected_version);
 
-    // 6. Determinar source_detail final
-    let source_detail = if source_override != "auto" {
-        match source_override.to_lowercase().as_str() {
-            "proton" => crate::domain::contact::SourceDetail::ProtonAutosave,
-            "google" => crate::domain::contact::SourceDetail::Google,
-            "apple" => crate::domain::contact::SourceDetail::Apple,
-            _ => detected_source,
-        }
-    } else {
-        detected_source
-    };
-
-    // 7. Cargar configuración
+    // 7. Cargar configuración (usando traits para inversión de dependencias)
     let app_config = load_config(config)?;
-    let screening_config = &app_config.screening;
+    let screening_config = app_config.screening_config();
 
     // 8. Procesar cada contacto
     let mut active_contacts: Vec<Contact> = Vec::with_capacity(vcards.len());
@@ -99,7 +100,19 @@ pub fn execute(
         }
 
         let mut contact = adapted.to_contact()?;
-        contact.source_detail = source_detail.clone();
+
+        // Detectar fuente por contacto basado en UID
+        let source_detail = if source_override != "auto" {
+            match source_override.to_lowercase().as_str() {
+                "proton" => crate::domain::contact::SourceDetail::ProtonAutosave,
+                "google" => crate::domain::contact::SourceDetail::Google,
+                "apple" => crate::domain::contact::SourceDetail::Apple,
+                _ => detect_source(&[], &[contact.uid.clone()]),
+            }
+        } else {
+            detect_source(&[], &[contact.uid.clone()])
+        };
+        contact.source_detail = source_detail;
 
         let trace = decide(&contact, screening_config);
         contact.screening_rule = trace.triggered_rule.clone();
@@ -136,7 +149,7 @@ pub fn execute(
                 }
             }
 
-            contact.categories = classify(&contact, &app_config.classification_rules);
+            contact.categories = classify(&contact, app_config.classification_rules());
 
             active_contacts.push(contact);
         } else {
@@ -196,10 +209,21 @@ pub fn execute(
         .count();
 
     // 10. Verificación de invariantes
-    let warnings = verify(&contacts, Some(input), output);
-    if !warnings.is_empty() {
-        for warning in &warnings {
-            tracing::warn!("{}", warning);
+    match verify(&contacts, Some(input), output, strict) {
+        Ok(warnings) => {
+            if !warnings.is_empty() {
+                for warning in &warnings {
+                    tracing::warn!("{}", warning);
+                }
+            }
+        }
+        Err(critical_errors) => {
+            for err in &critical_errors {
+                tracing::error!("{}", err);
+            }
+            let err_box: Box<dyn std::error::Error + Send + Sync> =
+                Box::new(CriticalInvariantErrors(critical_errors));
+            return Err(CribaError::InvariantError(err_box));
         }
     }
 
