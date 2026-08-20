@@ -1,3 +1,11 @@
+---
+version: "0.2.0"
+date: "2026-08-15"
+status: "Activo"
+canonical: true
+supersedes: "v0.1.x"
+---
+
 # Zedazo — Arquitectura
 
 **Versión:** 0.2.0
@@ -82,17 +90,27 @@ Regla de dependencia:
 
 ### 2. QualityContext
 
-**Responsabilidad:** Cribado (E1-E6, C1-C7) con precedencia determinista, normalización (FN, N, TEL, ADR, ORG).
+**Responsabilidad:** Cribado (E1-E6, C1-C7) con precedencia determinista.
 
 **Módulos:**
 - `domain/screening.rs` — `decide()`, `DecisionTrace`, `ScreeningDecision`
 - `domain/contact.rs` — `Contact`, `StructuredName`, `Tel`
-- `application/cribar.rs` — `normalize_contact()`
 
 **Entrada:** `Vec<ParsedVCard>`
-**Salida:** `Vec<Contact>` con `decision` y campos normalizados
+**Salida:** `Vec<Contact>` con `decision` (sin normalizar)
 
-### 3. TaxonomyContext
+### 3. NormalizationContext
+
+**Responsabilidad:** Normalización de campos (N1-N7 para FN, T1-T4 para TEL, normalización de ORG, ADR).
+
+**Módulos:**
+- `domain/normalization.rs` — `normalize_fn()`, `normalize_tel()`, `normalize_org()`
+- `application/cribar.rs` — llamada a funciones de normalización
+
+**Entrada:** `Vec<Contact>` (tras cribado, solo activos)
+**Salida:** `Vec<Contact>` con campos normalizados (FN, TEL, ORG, title, role)
+
+### 4. TaxonomyContext
 
 **Responsabilidad:** Asignar categorías N1/N2/N3 mediante reglas regex. Cargar reglas desde TOML (herencia: añadir o reemplazar).
 
@@ -104,7 +122,7 @@ Regla de dependencia:
 **Entrada:** `Vec<Contact>` + `Option<Config>`
 **Salida:** `Vec<Contact>` con `categories` poblado
 
-### 4. IdentityContext
+### 5. IdentityContext
 
 **Responsabilidad:** Detectar duplicados D1-D2 con Union-Find (cierre transitivo), fusionar contactos, registrar propuestas D3-D6.
 
@@ -114,7 +132,7 @@ Regla de dependencia:
 **Entrada:** `Vec<Contact>`
 **Salida:** `Vec<Contact>` fusionado + `merged_uids` + propuestas en NOTE
 
-### 5. OutputContext
+### 6. OutputContext
 
 **Responsabilidad:** Serializar a VCF 4.0, CSV, JSON, TSV. Folding 75 octetos. Preservación de binarios.
 
@@ -136,27 +154,32 @@ Regla de dependencia:
 │ ParsedVCard │ ──────────────────────→ │ Contact  │
 │ (infra)     │                        │ (domain) │
 └─────────────┘                        └──────────┘
-                                              │
-                    ┌─────────────────────────┤
-                    │                         │
-               decide()                  classify()
-                    │                         │
-                    ▼                         ▼
-            ScreeningDecision            CategorySet
-                    │                         │
-                    └─────────┬───────────────┘
-                              │
-                         deduplicate()
-                              │
-                              ▼
-                      Vec<Contact> (final)
-                              │
-              ┌───────────────┼───────────────┐
-              │               │               │
-         write_vcf()    write_csv()    write_json()
-              │               │               │
-              ▼               ▼               ▼
-         .vcf (4.0)      .csv            .json
+                                               │
+                     ┌─────────────────────────┤
+                     │                         │
+                decide()                  classify()
+                     │                         │
+                     ▼                         ▼
+             ScreeningDecision            CategorySet
+                     │                         │
+                     └─────────┬───────────────┘
+                               │
+                        normalize_fn/tel/org()
+                               │
+                               ▼
+                     Vec<Contact> (normalizado)
+                               │
+                          deduplicate()
+                               │
+                               ▼
+                       Vec<Contact> (final)
+                               │
+               ┌───────────────┼───────────────┐
+               │               │               │
+          write_vcf()    write_csv()    write_json()
+               │               │               │
+               ▼               ▼               ▼
+          .vcf (4.0)      .csv            .json
 
   En paralelo: AuditEntry → write_tsv() → .tsv
 ```
@@ -184,12 +207,14 @@ application::cribar
   → infrastructure::config
   → domain::screening
   → domain::contact
+  → domain::normalization
   → domain::classification
   → domain::identity
   → infrastructure::writer
   → infrastructure::tsv_writer
 
 domain::screening → domain::contact, domain::rules
+domain::normalization → domain::contact
 domain::classification → domain::rules
 domain::identity → domain::contact
 domain::contact → (sin dependencias)

@@ -35,7 +35,7 @@ Ver [`ARCHITECTURE.md`](ARCHITECTURE.md) para la arquitectura completa.
 
 ```bash
 make hooks       # instalar pre-commit (fmt + clippy); ver `.githooks/install.sh`
-make ci          # fmt + clippy + test + check + doc
+make ci          # fmt + clippy + test + check + doc + docs-validate
 make deny        # opcional: cargo-deny (licencias/advisories)
 ```
 
