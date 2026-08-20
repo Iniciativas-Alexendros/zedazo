@@ -1,0 +1,48 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:Escaped;Name\,With\,Commas
+N:Name\,With\,Commas;Escaped;;;
+EMAIL:escaped@test.com
+TEL:+34600000001
+NOTE:Line 1\nLine 2\nLine with \; semicolon and \, comma
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:Dr. María González
+N:González;María;;Dr.;;
+EMAIL:maria@test.com
+TEL:+34600000002
+TITLE:Doctora
+ROLE:Jueza
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:info@empresa.com
+N:Empresa;Info;;;
+EMAIL:info@empresa.com
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:Photo Contact
+N:Contact;Photo;;;
+EMAIL:photo@test.com
+TEL:+34600000003
+PHOTO;ENCODING=b:SGVsbG8gV29ybGQ=
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:Sr. D. José Martínez
+N:Martínez;José;;Sr. D.;;
+EMAIL:jose@test.com
+TEL:+34600000004
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:Binary;Data
+N:Data;Binary;;;
+EMAIL:binary@test.com
+TEL:+34600000005
+LOGO;ENCODING=b:bG9nbw==
+SOUND;ENCODING=b:c291bmQ=
+KEY;ENCODING=b:a2V5
+END:VCARD

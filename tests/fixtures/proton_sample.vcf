@@ -1,0 +1,55 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:proton-autosave-001
+FN:Contacto Proton 1
+N:Apellido1;Nombre1;;;
+EMAIL;TYPE=WORK,PREF:contacto1@protonmail.com
+TEL;TYPE=CELL:+34600111222
+ORG:Empresa Proton 1
+NOTE:Importado desde ProtonMail
+PRODID:-//ProtonMail//Proton Contacts//EN
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:proton-import-002
+FN:Contacto Proton 2
+N:Apellido2;Nombre2;;;
+EMAIL;TYPE=HOME:contacto2@protonmail.com
+TEL;TYPE=HOME:+34611222333
+ORG:Empresa Proton 2
+NOTE:Importado desde ProtonMail
+PRODID:-//ProtonMail//Proton Contacts//EN
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:proton-web-003
+FN:Contacto Proton 3
+N:Apellido3;Nombre3;;;
+EMAIL;TYPE=WORK:contacto3@protonmail.com
+TEL;TYPE=WORK:+34622333444
+ORG:Empresa Proton 3
+NOTE:Creado en Proton Web
+PRODID:-//ProtonMail//Proton Contacts//EN
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:proton-autosave-004
+FN:Contacto Proton 4
+N:Apellido4;Nombre4;;;
+EMAIL;TYPE=WORK:contacto4@protonmail.com
+TEL;TYPE=CELL:+34633444555
+ORG:Empresa Proton 4
+NOTE:Autoguardado Proton
+PRODID:-//ProtonMail//Proton Contacts//EN
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:proton-import-005
+FN:Contacto Proton 5
+N:Apellido5;Nombre5;;;
+EMAIL;TYPE=HOME:contacto5@protonmail.com
+TEL;TYPE=HOME:+34644555666
+ORG:Empresa Proton 5
+NOTE:Importado vCard
+PRODID:-//ProtonMail//Proton Contacts//EN
+END:VCARD

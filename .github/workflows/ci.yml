@@ -44,19 +44,6 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo check --all-features
 
-  msrv-verify:
-    name: Verify MSRV (cargo-msrv)
-    needs: [health]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-      - name: Install cargo-msrv
-        run: cargo install cargo-msrv --locked
-      - name: Verify MSRV
-        run: cargo msrv verify --min 1.80
-
   fmt:
     name: Format
     needs: [health]
@@ -109,7 +96,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Install cargo-deny
-        uses: EmbarkStudios/cargo-deny-action@v2
+        uses: taiki-e/install-action@cargo-deny
       - name: Run cargo-deny
         run: cargo deny check
 

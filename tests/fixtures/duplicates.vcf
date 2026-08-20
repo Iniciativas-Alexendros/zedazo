@@ -1,0 +1,48 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:dup-uid-1
+FN:Juan Pérez
+N:Pérez;Juan;;;
+EMAIL:juan@test.com
+TEL;TYPE=CELL:+34600111222
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:dup-uid-1
+FN:Juan Pérez García
+N:Pérez García;Juan;;;
+EMAIL:juan.perez@test.com
+TEL;TYPE=CELL:+34600111222
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:uid-a
+FN:Ana López
+N:López;Ana;;;
+EMAIL:ana@test.com
+TEL;TYPE=CELL:+34611222333
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:uid-b
+FN:Ana López
+N:López;Ana;;;
+EMAIL:ana.lopez@test.com
+TEL;TYPE=CELL:+34644555666
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:uid-c
+FN:Ana López
+N:López;Ana;;;
+EMAIL:ana@test.com
+TEL;TYPE=CELL:+34677888999
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+UID:uid-d
+FN:Carlos Ruiz
+N:Ruiz;Carlos;;;
+EMAIL:carlos@test.com
+TEL;TYPE=CELL:+34677888999
+END:VCARD
