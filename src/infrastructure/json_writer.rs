@@ -147,6 +147,7 @@ mod tests {
             decision: ScreeningDecision::Conserved,
             screening_rule: String::new(),
             merged_uids: vec![],
+            adr_field: None,
         };
 
         let dir = std::env::temp_dir();
@@ -180,6 +181,7 @@ mod tests {
             decision: ScreeningDecision::Eliminated(crate::domain::screening::ElimCode::E1),
             screening_rule: String::new(),
             merged_uids: vec![],
+            adr_field: None,
         };
 
         let dir = std::env::temp_dir();

@@ -27,7 +27,12 @@ pub fn classify(contact: &Contact, rules: &[ClassificationRule]) -> CategorySet 
         n1.insert(default_n1(contact).to_string());
     }
 
-    CategorySet { n1, n2, n3 }
+    CategorySet {
+        n1,
+        n2,
+        n3,
+        adr_field: None,
+    }
 }
 
 fn build_haystack(contact: &Contact) -> String {
@@ -79,6 +84,7 @@ mod tests {
             decision: ScreeningDecision::Conserved,
             screening_rule: String::new(),
             merged_uids: vec![],
+            adr_field: None,
         }
     }
 

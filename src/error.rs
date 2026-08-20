@@ -38,4 +38,7 @@ pub enum CribaError {
 
     #[error("archivo VCF vacío")]
     EmptyVcf,
+
+    #[error("invariantes críticas violadas: {0}")]
+    InvariantError(Box<dyn std::error::Error + Send + Sync>),
 }

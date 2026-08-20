@@ -202,6 +202,7 @@ mod tests {
             decision,
             screening_rule: String::new(),
             merged_uids: vec![],
+            adr_field: None,
         }
     }
 
