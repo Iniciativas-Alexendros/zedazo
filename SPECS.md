@@ -1,9 +1,19 @@
+---
+version: "0.2.0"
+date: "2026-08-15"
+status: "Aprobado"
+canonical: true
+supersedes: "v0.1.x"
+---
+
 # SPECS.md
 
 **Versión:** 0.2.0  
 **Fecha:** 2026-08-15  
 **Estado:** Aprobado (MVP v0.1.x; rename v0.2.0)  
 **Canónico:** este archivo. [`docs/spec.md`](docs/spec.md) redirige aquí.
+
+**Documentos relacionados:** [ROADMAP.md](./ROADMAP.md) · [DECISIONS.md](./DECISIONS.md) · [ARCHITECTURE.md](./ARCHITECTURE.md) · [AGENTS.md](./AGENTS.md)
 
 ---
 

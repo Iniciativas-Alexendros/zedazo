@@ -1,3 +1,11 @@
+---
+version: "0.2.0"
+date: "2026-08-15"
+status: "Activo"
+canonical: true
+supersedes: "v0.1.x"
+---
+
 # AGENTS.md
 
 **Versión:** 0.2.0  
