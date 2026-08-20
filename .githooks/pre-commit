@@ -1,5 +1,5 @@
 #!/bin/sh
-# Pre-commit hook: formatea y verifica lint antes de cada commit.
+# Pre-commit hook: formatea, verifica lint, tests y docs antes de cada commit.
 
 set -eu
 
@@ -9,9 +9,27 @@ cargo fmt --check || {
     exit 1
 }
 
-echo "→ cargo clippy -- -D warnings"
+echo "→ cargo clippy --all-features -- -D warnings"
 cargo clippy --all-features -- -D warnings || {
     echo "⚠️  Clippy encontró problemas."
+    exit 1
+}
+
+echo "→ cargo check --all-features"
+cargo check --all-features || {
+    echo "⚠️  cargo check falló."
+    exit 1
+}
+
+echo "→ cargo test --lib --all-features"
+cargo test --lib --all-features || {
+    echo "⚠️  Tests unitarios fallaron."
+    exit 1
+}
+
+echo "→ make docs-validate"
+make docs-validate || {
+    echo "⚠️  Validación de docs falló."
     exit 1
 }
 

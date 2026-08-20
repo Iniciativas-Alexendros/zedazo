@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:Juan Pérez García
+N:Pérez García;Juan;;;
+EMAIL;TYPE=WORK:juan.perez@ejemplo.es
+TEL;TYPE=CELL:+34600111222
+ORG:Empresa S.L.
+END:VCARD
+BEGIN:VCARD
+VERSION:4.0
+FN:María López
+N:López;María;;;
+EMAIL:maria@test.com
+TEL:+34611222333
+END:VCARD

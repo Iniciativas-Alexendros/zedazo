@@ -87,6 +87,19 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo doc --no-deps --document-private-items
 
+  deny:
+    name: Deny (cargo-deny)
+    needs: [check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install cargo-deny
+        uses: taiki-e/install-action@cargo-deny
+      - name: Run cargo-deny
+        run: cargo deny check
+
   coverage:
     name: Coverage
     needs: [test]
@@ -102,7 +115,7 @@ jobs:
       - name: Generate coverage
         run: |
           mkdir -p coverage
-          cargo llvm-cov --lcov --output-path coverage/lcov.info
+          cargo llvm-cov --lcov --output-path coverage/lcov.info --fail-under-lines 80 --fail-under-regions 75
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
         with:
