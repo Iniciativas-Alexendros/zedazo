@@ -1,6 +1,6 @@
 ---
-version: "0.2.0"
-date: "2026-08-15"
+version: "0.3.0"
+date: "2026-09-02"
 status: "Activo"
 canonical: true
 supersedes: "v0.1.x"
@@ -8,8 +8,8 @@ supersedes: "v0.1.x"
 
 # DECISIONS.md
 
-**Versión:** 0.2.0  
-**Fecha:** 2026-08-15  
+**Versión:** 0.3.0  
+**Fecha:** 2026-09-02  
 **Canónico:** este archivo. [`docs/adr/README.md`](docs/adr/README.md) conserva el texto histórico de ADR-0001…0005 y apunta aquí para IDs nuevos.
 
 ---

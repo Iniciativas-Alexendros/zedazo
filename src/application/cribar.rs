@@ -12,7 +12,7 @@ use crate::domain::identity::deduplicate;
 use crate::domain::normalization::{normalize_fn, normalize_org, normalize_tel};
 use crate::domain::pipeline::{ClassificationRuleProvider, ScreeningConfigProvider};
 use crate::domain::screening::{decide, ScreeningDecision};
-use crate::domain::verification::{verify, InvariantError};
+use crate::domain::verification::{verify, verify_post, InvariantError};
 use crate::error::CribaError;
 
 use crate::infrastructure::config::load_config;
@@ -255,6 +255,11 @@ pub fn execute(
         }
         if let Some(audit_path) = audit {
             write_audit_tsv(&audit_entries, audit_path)?;
+        }
+        // 11. Verificación post-escritura I4-I6 (no crítica, solo warnings)
+        let post_warnings = verify_post(&contacts, output, audit);
+        for w in &post_warnings {
+            tracing::warn!("{}", w);
         }
     }
 
