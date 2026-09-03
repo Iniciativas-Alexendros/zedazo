@@ -227,7 +227,7 @@ jobs:
         run: cargo install cargo-cyclonedx --locked
       - name: Generate SBOM
         run: |
-          cargo cyclonedx --format json --override-filename sbom.json
+          cargo cyclonedx --format json --override-filename sbom
           sha256sum sbom.json > sbom.json.sha256
       - name: Upload SBOM
         uses: actions/upload-artifact@v7
