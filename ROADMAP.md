@@ -1,15 +1,15 @@
 ---
-version: "0.2.0"
-date: "2026-08-15"
+version: "0.3.0"
+date: "2026-09-02"
 status: "Activo"
 canonical: true
-supersedes: "v0.1.x"
+supersedes: "v0.2.0"
 ---
 
 # ROADMAP.md
 
-**Versión:** 0.2.0  
-**Fecha:** 2026-08-15  
+**Versión:** 0.3.0  
+**Fecha:** 2026-09-02  
 **Canónico:** este archivo. [`docs/tasks.md`](docs/tasks.md) redirige aquí.
 
 ---
@@ -25,8 +25,8 @@ supersedes: "v0.1.x"
 
 | Dimensión | Estado |
 |-----------|--------|
-| Versión publicada | `vcf-cribador` **0.1.2** (deprecado) · **Zedazo** `zedazo` **0.2.0** en crates.io |
-| Tests | 145 (main); cobertura vía `cargo llvm-cov` → Coveralls (badge oculto hasta #25) |
+| Versión publicada | `vcf-cribador` **0.1.2** (deprecado) · **Zedazo** `zedazo` **0.3.0** (local, pendiente tag) |
+| Tests | 150 (144 unit + 6 verification I4–I6) + 17 integración; cobertura vía `cargo llvm-cov` → Coveralls |
 | CI | `ubuntu-latest` (#30; self-hosted cuando vuelva); Renovate |
 | Branch protection | Activa en `main` |
 | Backlog trazable | Issues GitHub (#32 rename) |
@@ -57,10 +57,10 @@ supersedes: "v0.1.x"
 ### v0.3.0 — Calidad y robustez — L
 
 **Criterio de salida:**
-- [ ] Reglas C1, C5, C7, E4, E6 con tests
-- [ ] `domain::verification` aplica I1–I7 en pipeline
-- [ ] Documentación canónica raíz alineada (SPECS/ROADMAP/DECISIONS/AGENTS)
-- [ ] Issues cerrados o movidos con criterio explícito
+- [x] Reglas C1, C5, C7, E4, E6 con tests (`screening.rs` 272–465 + tests 628–678, #21)
+- [x] `domain::verification` aplica I1–I7 en pipeline (`verify` pre + `verify_post` post-escritura I4/I5/I6 en `cribar.rs:258`)
+- [x] Documentación canónica raíz alineada (SPECS/ROADMAP/DECISIONS/AGENTS → 0.3.0 2026-09-02)
+- [x] Issues #21/#25/#26/#27/#35 documentados para cierre en PR 0.3.0
 
 **Fuera de alcance v0.3.0:** CardDAV, watch mode, GUI.
 

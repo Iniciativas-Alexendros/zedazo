@@ -1,6 +1,6 @@
 [package]
 name = "zedazo"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 rust-version = "1.80"
 description = "Zedazo: criba, normaliza, clasifica y deduplica contactos VCF vCard 4.0/3.0"
