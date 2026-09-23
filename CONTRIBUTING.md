@@ -42,6 +42,7 @@ Ver [`ARCHITECTURE.md`](ARCHITECTURE.md) para la arquitectura completa.
 make hooks       # instalar pre-commit (fmt + clippy); ver `.githooks/install.sh`
 make ci          # fmt + clippy + test + check + doc + docs-validate + parity + web-ci
 make deny        # opcional: cargo-deny (licencias/advisories)
+make audit       # opcional: cargo-audit (falla solo en vulnerabilidades RustSec)
 ```
 
 Los hooks viven en [`.githooks/`](.githooks/) y se activan con `make hooks`. Documentos canónicos: [AGENTS.md](AGENTS.md), [SPECS.md](SPECS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).

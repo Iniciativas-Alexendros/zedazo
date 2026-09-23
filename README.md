@@ -229,7 +229,7 @@ Ver [`CONTRIBUTING.md`](CONTRIBUTING.md) para la guía de contribución.
 
 Reporta vulnerabilidades de forma privada. Ver [`SECURITY.md`](SECURITY.md).
 
-Ejecutamos `cargo audit` semanalmente vía GitHub Actions.
+Ejecutamos `cargo audit` semanalmente (y en PRs del lockfile). Falla solo ante vulnerabilidades RustSec; ver [`SECURITY.md`](SECURITY.md).
 
 ## Licencia
 

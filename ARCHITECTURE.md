@@ -30,7 +30,7 @@ El proyecto usa **GitHub Actions** en **`ubuntu-latest`**. ADR-0008 prefiere run
 | Workflow          | Trigger                    | Jobs                                     |
 | ----------------- | -------------------------- | ---------------------------------------- |
 | `ci.yml`          | push/PR a `main`           | Check, MSRV, Format, Clippy, Test, Doc, Coverage, Docs validate, Parity O10, Web |
-| `audit.yml`       | Schedule lunes 08:00 UTC   | cargo audit                              |
+| `audit.yml`       | Lunes 08:00 UTC; PR/push a lockfile/política | cargo audit (falla solo en vulns RustSec) |
 | `release.yml`     | Tag `v*`                   | Build + Package + Publish to crates.io   |
 | Renovate          | Schedule + PRs             | `.github/renovate.json` (no Dependabot)  |
 

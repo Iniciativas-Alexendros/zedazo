@@ -1,4 +1,4 @@
-.PHONY: all check test build release clean hooks version bump fmt clippy doc deny help docs-validate parity web-ci
+.PHONY: all check test build release clean hooks version bump fmt clippy doc deny audit help docs-validate parity web-ci
 
 CARGO := cargo
 BINARY := target/release/zedazo
@@ -42,6 +42,10 @@ clean: ## Limpia artefactos de compilación
 deny: ## Licencias/advisories (cargo-deny; ADR-0013)
 	@command -v cargo-deny >/dev/null || (echo "Instala: cargo install cargo-deny" && exit 1)
 	cargo deny check
+
+audit: ## Advisories RustSec (cargo-audit; política en .cargo/audit.toml)
+	@command -v cargo-audit >/dev/null || (echo "Instala: cargo install cargo-audit" && exit 1)
+	cargo audit
 
 docs-validate: ## Valida documentación canónica (frontmatter, enlaces, stubs, trazabilidad)
 	@echo "→ Validando frontmatter en docs canónicos..."
