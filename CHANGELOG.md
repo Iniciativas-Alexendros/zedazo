@@ -17,6 +17,8 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - Primer slice CardDAV (ADR-0018 / [#48](https://github.com/Iniciativas-Alexendros/zedazo/issues/48), no cierra el issue): crate `zedazo-carddav` (`publish = false`), CLI `zedazo carddav list|pull`, Basic + app-password (`ZEDAZO_CARDDAV_*`), descubrimiento RFC 6764 y perfil Nextcloud; guía [`docs/carddav.md`](docs/carddav.md)
 
 ### Security
+- `rustls` 0.23.44 → 0.23.45 ([RUSTSEC-2026-0285](https://rustsec.org/advisories/RUSTSEC-2026-0285): handshake TLS 1.3 aceptado en el encryption level incorrecto)
+- Política `cargo audit`: el workflow falla solo ante vulnerabilidades; avisos informativos no bloquean; excepciones en `.cargo/audit.toml` + `deny.toml`
 - CardDAV: los hrefs DAV absolutos quedan anclados al origen del servidor; no se reenvía Basic a loopback u otro host inyectado en el 207
 - **ADR-0018** (aceptada): red/proveedor CardDAV como precondición de v0.4.0 / [#48](https://github.com/Iniciativas-Alexendros/zedazo/issues/48) — cliente RFC 6352, una cuenta, crate dedicado; sin código de sync en este cambio
 - Convención de marca y pesquisa TMview UE clases 9/42 en [`docs/brand.md`](docs/brand.md) (#49)
