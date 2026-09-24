@@ -1,5 +1,11 @@
 # Contribuir a Zedazo
 
+### Propósito de este documento
+
+- **Objetivos:** Flujo de fork/PR, convenciones Rust y checks locales (`make ci`).
+- **Estructura:** Propósito → flujo → convenciones → estructura → antes de enviar → tokens GUI → bugs.
+- **Contenido a integrar según contexto:** Conserva hooks, dual license y fixtures sintéticos. CI canónico: `quality` ≡ fmt+clippy+docs-validate; `test` ≡ `cargo test --workspace --all-features`; `smoke` ≡ health+check. No reescribas jobs maduros.
+
 ¡Gracias por tu interés en contribuir!
 
 ## Flujo de trabajo

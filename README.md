@@ -1,5 +1,11 @@
 # zedazo
 
+### Propósito de este documento
+
+- **Objetivos:** Presentar el producto (CLI + GUI/API self-hosted), quick start y enlaces a contratos (AGENTS, SPECS, ARCHITECTURE, SECURITY, CONTRIBUTING, CoC, SUPPORT).
+- **Estructura:** Propósito → badges → quick start → GUI → docs → desarrollo → licencia.
+- **Contenido a integrar según contexto:** Conserva copy, wordmark `zedazo` y dual license. No copies un README de landing/SaaS ni tokens/DS de otro paquete. CI canónico = wrappers `quality` / `test` / `smoke` sobre jobs Rust maduros.
+
 [![CI](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/ci.yml)
 [![Security Audit](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/audit.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/zedazo/actions/workflows/audit.yml)
 [![Coverage Status](https://coveralls.io/repos/github/Iniciativas-Alexendros/zedazo/badge.svg?branch=main)](https://coveralls.io/github/Iniciativas-Alexendros/zedazo?branch=main)
@@ -204,6 +210,10 @@ deploy/                 Docker Compose local + remoto + landing (Caddy)
 | [`ROADMAP.md`](ROADMAP.md)                                     | Hitos y criterios de salida                          |
 | [`DECISIONS.md`](DECISIONS.md)                                 | ADR con IDs estables                                 |
 | [`AGENTS.md`](AGENTS.md)                                       | Contrato para agentes de código                      |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)                           | Flujo de contribución y `make ci`                    |
+| [`SECURITY.md`](SECURITY.md)                                   | Avisos privados; no abrir issue público              |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)                     | Código de conducta                                   |
+| [`SUPPORT.md`](SUPPORT.md)                                     | Dónde pedir ayuda                                    |
 | [`docs/gui/`](docs/gui/)                                       | Paridad O10, deploy (incl. DNS del dominio de producto), threat-model, retención, [plan design system](docs/gui/design-system-plan.md) (ejecutado; catálogo GUI `/documentacion/ds`) |
 | [`docs/carddav.md`](docs/carddav.md)                           | CardDAV CLI pull/write/watch (ADR-0018 / #48)            |
 | [`docs/api/openapi.yaml`](docs/api/openapi.yaml)               | Contrato HTTP `/api/v1`                              |
@@ -223,7 +233,7 @@ make ci        # fmt + clippy + test + check + doc + docs-validate + parity + we
 make release   # build release
 ```
 
-Ver [`CONTRIBUTING.md`](CONTRIBUTING.md) para la guía de contribución.
+Ver [`CONTRIBUTING.md`](CONTRIBUTING.md) para la guía de contribución. Soporte: [`SUPPORT.md`](SUPPORT.md). Conducta: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
 ## Seguridad
 

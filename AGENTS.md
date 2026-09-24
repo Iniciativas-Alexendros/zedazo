@@ -8,6 +8,12 @@ supersedes: "v0.3.1"
 
 # AGENTS.md
 
+### Propósito de este documento
+
+- **Objetivos:** Contrato operativo para agentes de código y el rol Mantenedor: fuentes de verdad, autonomía, comandos, CI canónico y Definition of Done.
+- **Estructura:** Propósito → destinatario → fuentes de verdad → unidad de trabajo → autonomía → working agreement → comandos → DoD → preferencias → hechos del workspace (incluye equivalencia CI).
+- **Contenido a integrar según contexto:** Conserva el contrato Rust/GUI de este repo. No copies un `AGENTS.md` de landing/SaaS ni reescribas jobs maduros (`fmt`, `clippy`, `test`, `check`, `parity`, `web`). Homogeneizamos **nombres** (`quality` / `test` / `smoke`), no la CLI ni el dominio.
+
 **Versión:** 0.3.2  
 **Fecha:** 2026-09-09  
 **Propósito:** Contrato operativo para agentes de código en este repo.
@@ -40,7 +46,7 @@ Alcance: <archivos>
 Exclusiones: <qué no harás>
 Dependencias: <PR/rama previa>
 Pruebas: make ci / cargo test --all-features
-Criterio de cierre: CI verde + criterio SPECS
+Criterio de cierre: jobs quality + test + smoke verdes + criterio SPECS
 ```
 
 ## 4. Autonomía
@@ -81,7 +87,7 @@ cargo llvm-cov --lcov --output-path coverage/lcov.info
 ## 7. Definition of Done
 
 - Criterios de aceptación de la traza cumplidos
-- `make ci` verde
+- Jobs canónicos `quality`, `test` y `smoke` verdes (`make ci` cubre el mismo conjunto local)
 - Docs canónicos actualizados si cambia contrato
 - Sin secretos en el diff
 
@@ -105,3 +111,12 @@ cargo llvm-cov --lcov --output-path coverage/lcov.info
 - O10: harness HTTP en `crates/zedazo-api/tests/equivalence_http.rs` vía `make parity`; matriz en `docs/gui/functional-parity-matrix.md`.
 - CI de GitHub Actions corre en `ubuntu-latest`; no hay runners self-hosted registrados.
 - `make web-ci` incluye build de `apps/web` y Playwright e2e/a11y + regresión visual (`e2e/visual.spec.ts`); excluye el spec opt-in `screenshots` (`docs/screenshots/`).
+- Canon de flota P0 (`quality` / `test` / `smoke`) **no sustituye** los jobs Rust maduros. Wrappers en `.github/workflows/ci.yml`:
+
+| Canon | Equivale a (jobs existentes) |
+| --- | --- |
+| `quality` | `fmt` + `clippy` + `docs-validate` |
+| `test` | `test` (ya canónico: `cargo test --workspace --all-features`) |
+| `smoke` | `health` + `check` (compilación workspace) |
+
+  El resto (`msrv`, `doc`, `parity`, `web`, `deny`, `coverage`) sigue siendo la superficie Rust/GUI; no se aplasta. ADRs en [`DECISIONS.md`](./DECISIONS.md) (no se mueve a `docs/architecture/decisions/`). Renovate en [`.github/renovate.json`](./.github/renovate.json). Dual license MIT OR Apache-2.0 y [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) se conservan.
