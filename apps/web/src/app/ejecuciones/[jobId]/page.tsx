@@ -2,18 +2,16 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { isCancellableStatus, type ContactView, type JobManifest } from "@/lib/api";
 import {
   artifactUrl,
   cancelJob,
   getAudit,
   getJob,
   getStats,
-  isCancellableStatus,
   listContacts,
   listDuplicates,
-  type ContactView,
-  type JobManifest,
-} from "@/lib/api";
+} from "@/lib/data-adapter";
 import { PageHeader } from "@/components/shell/page-header";
 import { JobSummary } from "@/components/jobs/job-summary";
 import { JobStatus } from "@/components/jobs/job-status";

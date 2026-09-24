@@ -173,7 +173,7 @@ Preferencia: **`/documentacion/ds`** dentro de `apps/web` (misma app, mismo tema
 
 ### 4.5 Lo que no entra en este pipeline
 
-- `apps/landing/` (ficha pública estática; wordmark sí, tokens de GUI no).
+- `apps/landing/` era ficha estática fuera del pipeline (fase 1–4). Desde el contrato v1 ([`apps/web/tokens/CONTRACT.md`](../../apps/web/tokens/CONTRACT.md)) consume `tokens.css` generado: alias semánticos, mismos tonos `--zed-*`, sin paleta paralela.
 - Estilos de `zedazo-api` (no hay UI).
 - Tokens de marca verbal (`docs/brand.md`): el wordmark no dicta la paleta; la paleta no cambia el wordmark.
 

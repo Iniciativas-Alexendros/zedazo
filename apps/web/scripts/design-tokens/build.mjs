@@ -22,6 +22,7 @@ import { oklchToHex, parseOklchValue } from "./oklch.mjs";
 
 const GENERATED_DIR = path.join(WEB_ROOT, "src/design-system/generated");
 const TS_OUT = path.join(WEB_ROOT, "src/lib/design-tokens.ts");
+const LANDING_CSS = path.join(WEB_ROOT, "../landing/tokens.css");
 const CHECK = process.argv.includes("--check");
 
 const HEADER = `/**
@@ -220,12 +221,15 @@ ${WA_BRIDGE.map(([name, value]) => `  ${name}: ${value};`).join("\n")}
     faviconFg: accentOnLight,
   });
 
+  const landingCss = renderLandingCss(graph, groups.common);
+
   return {
     files: {
       [path.join(GENERATED_DIR, "tokens.css")]: tokensCss,
       [path.join(GENERATED_DIR, "themes.css")]: themesCss,
       [path.join(GENERATED_DIR, "wa-bridge.css")]: waBridgeCss,
       [TS_OUT]: ts,
+      [LANDING_CSS]: landingCss,
     },
     hex: {
       themeColor: { light: canvasLight, dark: canvasDark },
@@ -268,7 +272,136 @@ function collectCssVars(groups) {
 }
 
 function toCamel(cssVar) {
-  return cssVar.replace(/^--zed-/, "").replace(/-([a-z0-9])/g, (_, ch) => ch.toUpperCase());
+  const body = cssVar.startsWith("--zed-")
+    ? cssVar.slice("--zed-".length)
+    : cssVar.replace(/^--+/, "");
+  const camel = body.replace(/-([a-z0-9])/g, (_, ch) => ch.toUpperCase());
+  if (!/^[A-Za-z_]/.test(camel)) {
+    throw new Error(`identificador TS inválido para ${cssVar}`);
+  }
+  return camel;
+}
+
+function oklchFunctionsToHex(css) {
+  return css.replace(
+    /oklch\(\s*([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)(?:\s*\/\s*([0-9.]+))?\s*\)/g,
+    (_, l, c, h, alpha) => {
+      const hex = oklchToHex({ l: Number(l), c: Number(c), h: Number(h) });
+      if (alpha == null) return hex;
+      const r = Number.parseInt(hex.slice(1, 3), 16);
+      const g = Number.parseInt(hex.slice(3, 5), 16);
+      const b = Number.parseInt(hex.slice(5, 7), 16);
+      return `rgb(${r} ${g} ${b} / ${alpha})`;
+    },
+  );
+}
+
+function decls(pairs) {
+  return pairs.map(([name, value]) => `  ${name}: ${value};`).join("\n");
+}
+
+/**
+ * CSS autónomo para apps/landing. Los alias de contrato se resuelven a los
+ * mismos OKLCH de marca (claro/oscuro). Hex solo dentro de @supports not.
+ */
+export function renderLandingCss(graph, commonTokens) {
+  const plain = [];
+  const colorish = [];
+  /** @type {{ cssVar: string, aliasOf: string }[]} */
+  const aliases = [];
+
+  for (const token of commonTokens) {
+    if (token.aliasOf) {
+      aliases.push({ cssVar: token.cssVar, aliasOf: token.aliasOf });
+      continue;
+    }
+    const resolved = resolveToken(graph, token.path, new Set(), "common");
+    const css = formatCssValue(resolved.value, resolved.type ?? token.type);
+    if (css.includes("oklch(")) {
+      colorish.push([token.cssVar, css, oklchFunctionsToHex(css)]);
+    } else {
+      plain.push([token.cssVar, css]);
+    }
+  }
+
+  const orderedPlain = [
+    ...COMMON_ORDER.filter((name) => plain.some(([n]) => n === name)).map((name) =>
+      plain.find(([n]) => n === name),
+    ),
+    ...plain.filter(([name]) => !COMMON_ORDER.includes(name)).sort((a, b) => a[0].localeCompare(b[0])),
+  ];
+
+  const light = aliases.map((alias) => {
+    const resolved = resolveInTheme(graph, alias.aliasOf, "light");
+    return {
+      name: alias.cssVar,
+      oklch: formatCssValue(resolved.value, resolved.type),
+      hex: colorHex(graph, alias.aliasOf, "light"),
+    };
+  });
+  const dark = aliases.map((alias) => {
+    const resolved = resolveInTheme(graph, alias.aliasOf, "dark");
+    return {
+      name: alias.cssVar,
+      oklch: formatCssValue(resolved.value, resolved.type),
+      hex: colorHex(graph, alias.aliasOf, "dark"),
+    };
+  });
+
+  const lightOklch = [
+    ...light.map((row) => [row.name, row.oklch]),
+    ...colorish.map(([name, oklch]) => [name, oklch]),
+  ];
+  const lightHex = [
+    ...light.map((row) => [row.name, row.hex]),
+    ...colorish.map(([name, , hex]) => [name, hex]),
+  ];
+  const darkOklch = dark.map((row) => [row.name, row.oklch]);
+  const darkHex = dark.map((row) => [row.name, row.hex]);
+
+  const block = (pairs) => (pairs.length ? `${decls(pairs)}\n` : "");
+
+  return `${HEADER}
+
+/* Landing estática. Alias del contrato v1 → paleta zedazo. No editar a mano. */
+
+:root {
+  color-scheme: light dark;
+${decls(orderedPlain)}
+}
+
+@supports not (color: oklch(0 0 0)) {
+  :root {
+${block(lightHex)}  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+${block(darkHex)}    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+${block(darkHex)}  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+${block(lightHex)}  }
+}
+
+@supports (color: oklch(0 0 0)) {
+  :root {
+${block(lightOklch)}  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+${block(darkOklch)}    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+${block(darkOklch)}  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+${block(lightOklch)}  }
+}
+`;
 }
 
 function emitTs(cssVars, hex) {

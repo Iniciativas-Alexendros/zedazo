@@ -24,9 +24,11 @@ export function Statusbar({
   const conn =
     connection === "connected"
       ? "API conectada"
-      : connection === "disconnected"
-        ? "Sin conexión"
-        : "Comprobando…";
+      : connection === "local"
+        ? "Adaptador local"
+        : connection === "disconnected"
+          ? "Sin conexión"
+          : "Comprobando…";
 
   const parts = [
     conn,

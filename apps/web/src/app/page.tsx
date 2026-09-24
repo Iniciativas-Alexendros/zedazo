@@ -11,7 +11,8 @@ import { ErrorState } from "@/components/ui/error-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { JobStatus } from "@/components/jobs/job-status";
 import { buttonClassName } from "@/components/ui/button";
-import { listJobs, type JobManifest } from "@/lib/api";
+import type { JobManifest } from "@/lib/api";
+import { listJobs } from "@/lib/data-adapter";
 import { useApiHealth } from "@/lib/hooks/use-api-health";
 
 export default function HomePage() {
@@ -56,11 +57,13 @@ export default function HomePage() {
         title="Privacidad de esta instancia"
         icon="hard-drive"
       >
-        {state === "connected" && isLocalProcessing
-          ? "API en loopback: el procesamiento se ejecuta en esta máquina."
-          : state === "connected"
-            ? "API conectada. El frontend no afirma modo local porque la base no es loopback."
-            : "No hay conexión con la API. Comprueba que el backend local esté en marcha."}
+        {state === "local"
+          ? "Adaptador local activo. Los listados son fixtures sintéticos. Procesar un VCF real exige la API."
+          : state === "connected" && isLocalProcessing
+            ? "API en loopback: el procesamiento se ejecuta en esta máquina."
+            : state === "connected"
+              ? "API conectada. El frontend no afirma modo local porque la base no es loopback."
+              : "No hay conexión con la API. Comprueba que el backend local esté en marcha."}
       </Callout>
 
       <section>

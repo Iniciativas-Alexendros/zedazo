@@ -1,12 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  cancelJob,
-  deleteJob,
-  isCancellableStatus,
-  type JobManifest,
-} from "@/lib/api";
+import { isCancellableStatus, type JobManifest } from "@/lib/api";
+import { cancelJob, deleteJob } from "@/lib/data-adapter";
 import { Button, buttonClassName } from "@/components/ui/button";
 
 type Props = {

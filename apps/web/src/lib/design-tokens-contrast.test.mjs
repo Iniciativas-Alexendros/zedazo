@@ -77,6 +77,43 @@ test("parseOklchValue rechaza no-OKLCH", () => {
   assert.equal(parseOklchValue("oklch(1 0 0)"), null);
 });
 
+test("contrato v1: alias bg/text/border/action/feedback y landing", async () => {
+  const gui = await readFile(
+    path.join(WEB_ROOT, "src/design-system/generated/tokens.css"),
+    "utf8",
+  );
+  for (const needle of [
+    "--color-bg-base: var(--zed-bg-canvas);",
+    "--color-text-base: var(--zed-fg-default);",
+    "--color-border-base: var(--zed-border-default);",
+    "--color-action-primary-bg: var(--zed-accent);",
+    "--color-feedback-success-text: var(--zed-success-on-soft);",
+    "--color-button-primary-bg: var(--color-action-primary-bg);",
+    "--color-card-bg: var(--color-bg-surface);",
+    "--color-input-focus: var(--color-action-focus-ring);",
+  ]) {
+    assert.ok(gui.includes(needle), `falta ${needle}`);
+  }
+
+  const landingCss = await readFile(
+    path.join(WEB_ROOT, "../landing/tokens.css"),
+    "utf8",
+  );
+  assert.match(landingCss, /--color-text-base: oklch\(0\.34 0\.03 258\);/);
+  assert.match(landingCss, /--color-text-base: oklch\(0\.86 0\.018 250\);/);
+  assert.match(landingCss, /@supports not \(color: oklch\(0 0 0\)\)/);
+
+  const html = await readFile(path.join(WEB_ROOT, "../landing/index.html"), "utf8");
+  const layout = await readFile(path.join(WEB_ROOT, "../landing/landing.css"), "utf8");
+  const painted = html.replace(/<meta name="theme-color"[^>]*>/g, "");
+  assert.equal(/oklch\(/.test(painted), false);
+  assert.equal(/#[0-9a-fA-F]{3,8}\b/.test(painted), false);
+  assert.equal(/oklch\(/.test(layout), false);
+  assert.equal(/#[0-9a-fA-F]{3,8}\b/.test(layout), false);
+  assert.match(html, /href="\.\/tokens\.css"/);
+  assert.match(html, /<h1 class="wordmark">zedazo<\/h1>/);
+});
+
 test("mapToSrgbGamut reduce C si el color está fuera de sRGB", () => {
   const loud = { l: 0.7, c: 0.4, h: 30, alpha: 1 };
   const mapped = mapToSrgbGamut(loud);

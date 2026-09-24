@@ -16,6 +16,7 @@ const REF = /^\{([a-zA-Z0-9.-]+)\}$/;
  *   value: unknown,
  *   description?: string,
  *   cssVar?: string,
+ *   aliasOf?: string,
  *   theme?: "light" | "dark" | "common",
  *   file: string,
  * }} Token
@@ -197,6 +198,10 @@ function walk(node, pathParts, inheritedType, theme, file, tokens) {
       value: node.$value,
       description: typeof node.$description === "string" ? node.$description : undefined,
       cssVar: node.$extensions?.["com.zedazo"]?.cssVar,
+      aliasOf:
+        typeof node.$extensions?.["com.zedazo"]?.aliasOf === "string"
+          ? node.$extensions["com.zedazo"].aliasOf
+          : undefined,
       theme,
       file,
     });

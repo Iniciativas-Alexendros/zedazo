@@ -71,7 +71,7 @@ test.describe("estados representativos (fixtures sintéticos)", () => {
   });
 
   test("/ejecuciones error cumple axe", async ({ page }) => {
-    await gotoSettled(page, "/ejecuciones");
+    await gotoSettled(page, "/ejecuciones?fixture=error");
     await expect(page.getByRole("alert").first()).toBeVisible();
     await analyzeAxe(page);
   });
@@ -91,7 +91,7 @@ test.describe("estados representativos (fixtures sintéticos)", () => {
   });
 
   test("/ejecuciones/job-sintetico error cumple axe", async ({ page }) => {
-    await gotoSettled(page, `/ejecuciones/${SYNTHETIC_JOB_ID}`);
+    await gotoSettled(page, `/ejecuciones/${SYNTHETIC_JOB_ID}?fixture=error`);
     await expect(page.getByRole("alert").first()).toBeVisible();
     await analyzeAxe(page);
   });

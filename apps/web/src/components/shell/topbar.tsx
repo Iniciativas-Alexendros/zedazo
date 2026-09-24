@@ -40,9 +40,11 @@ export function Topbar({ connection, isLocalProcessing, onOpenNav }: Props) {
   const connectionLabel =
     connection === "connected"
       ? "API conectada"
-      : connection === "disconnected"
-        ? "Sin conexión"
-        : "Comprobando API…";
+      : connection === "local"
+        ? "Adaptador local"
+        : connection === "disconnected"
+          ? "Sin conexión"
+          : "Comprobando API…";
 
   return (
     <header className={styles.topbar}>
