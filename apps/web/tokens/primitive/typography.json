@@ -1,16 +1,15 @@
 {
-  "$description": "Familias, escala, interlineado y pesos. Atkinson UI / Plex Mono código.",
+  "$description": "Familias, escala, interlineado y pesos. Pila de flota (system-ui / Fira Code).",
   "font": {
     "family": {
       "ui": {
         "$type": "fontFamily",
         "$value": [
-          "Atkinson Hyperlegible Next",
-          "Atkinson Hyperlegible",
           "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
+          "Roboto",
           "sans-serif"
         ],
         "$extensions": { "com.zedazo": { "cssVar": "--zed-font-ui" } }
@@ -18,12 +17,8 @@
       "mono": {
         "$type": "fontFamily",
         "$value": [
-          "IBM Plex Mono",
-          "JetBrains Mono",
           "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
+          "Fira Code",
           "Consolas",
           "monospace"
         ],

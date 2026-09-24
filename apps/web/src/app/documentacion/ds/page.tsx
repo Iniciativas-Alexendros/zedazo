@@ -94,10 +94,10 @@ export default function DesignSystemCatalogPage() {
           ))}
         </div>
         <div className="zed-catalog-type">
-          <p className="zed-title-section">Atkinson · título de sección</p>
+          <p className="zed-title-section">system-ui · título de sección</p>
           <p>Cuerpo de interfaz. Texto esencial sobre canvas.</p>
           <p className="zed-muted">Texto secundario (muted).</p>
-          <p className="zed-mono">IBM Plex Mono · hash o TOML</p>
+          <p className="zed-mono">ui-monospace / Fira Code · hash o TOML</p>
         </div>
       </Card>
 

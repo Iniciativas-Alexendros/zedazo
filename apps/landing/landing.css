@@ -48,16 +48,23 @@ a:hover {
 }
 
 .wrap {
-  width: min(46rem, calc(100% - var(--zed-space-8)));
+  width: min(62rem, calc(100% - var(--zed-space-8)));
   margin: 0 auto;
-  padding: var(--zed-space-10) 0 var(--zed-space-16);
+  padding: var(--zed-space-6) 0 var(--zed-space-16);
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--zed-z-skip);
   display: flex;
   align-items: center;
   gap: var(--zed-space-3);
-  margin-bottom: var(--zed-space-8);
+  margin: calc(var(--zed-space-6) * -1) calc(50% - 50vw) var(--zed-space-8);
+  padding: var(--zed-space-3) max(var(--zed-space-4), calc(50vw - 31rem));
+  background: color-mix(in oklch, var(--color-card-bg) 88%, transparent);
+  backdrop-filter: blur(0.5rem);
+  border-bottom: var(--zed-border-width) solid var(--color-border-subtle);
 }
 
 .mark {
@@ -199,6 +206,17 @@ ol.steps li {
   .grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+@media (min-width: 56rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.grid > .panel {
+  margin-bottom: 0;
+  height: 100%;
 }
 
 .grid h3 {

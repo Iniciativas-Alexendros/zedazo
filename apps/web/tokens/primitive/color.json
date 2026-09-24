@@ -9,52 +9,52 @@
       },
       "50": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.985, 0.008, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.985, 0.008, 257] },
         "$description": "Papel / canvas claro"
       },
       "75": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.98, 0.006, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.98, 0.006, 257] },
         "$description": "Texto inverso sobre tinta (claro)"
       },
       "80": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.96, 0.012, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.96, 0.012, 257] },
         "$description": "Superficie inversa oscura (oscuro)"
       },
       "90": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.95, 0.012, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.95, 0.012, 257] },
         "$description": "Texto fuerte / selección (oscuro)"
       },
       "100": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.965, 0.012, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.965, 0.012, 257] },
         "$description": "Fondo sutil claro"
       },
       "200": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.93, 0.018, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.93, 0.018, 257] },
         "$description": "Fondo muted claro"
       },
       "300": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.89, 0.014, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.89, 0.014, 257] },
         "$description": "Borde sutil claro"
       },
       "400": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.81, 0.022, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.81, 0.022, 257] },
         "$description": "Borde por defecto claro"
       },
       "code": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.92, 0.02, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.92, 0.02, 257] },
         "$description": "Texto de código sobre tinta"
       },
       "code-soft": {
         "$type": "color",
-        "$value": { "colorSpace": "oklch", "components": [0.9, 0.02, 92] },
+        "$value": { "colorSpace": "oklch", "components": [0.9, 0.02, 257] },
         "$description": "Texto de código (oscuro)"
       }
     },

@@ -4,12 +4,12 @@
     "ui": {
       "$type": "fontFamily",
       "$value": "{font.family.ui}",
-      "$description": "Atkinson Hyperlegible Next — UI"
+      "$description": "Pila de flota system-ui — UI"
     },
     "mono": {
       "$type": "fontFamily",
       "$value": "{font.family.mono}",
-      "$description": "IBM Plex Mono — hashes, TOML, código"
+      "$description": "Pila de flota ui-monospace/Fira Code — hashes, TOML, código"
     }
   }
 }
