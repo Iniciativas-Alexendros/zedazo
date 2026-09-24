@@ -8,6 +8,12 @@ supersedes: "v0.3.1"
 
 # ROADMAP.md
 
+### Propósito de este documento
+
+- **Objetivos:** Hitos, criterios de salida y traza a SPECS/DECISIONS.
+- **Estructura:** Propósito → reglas → estado actual → hitos.
+- **Contenido a integrar según contexto:** No adelantes features de red o GUI sin ancla. No copies un roadmap de landing/SaaS.
+
 **Versión:** 0.3.2  
 **Fecha:** 2026-09-09  
 **Canónico:** este archivo. [`docs/tasks.md`](docs/tasks.md) redirige aquí.

@@ -8,6 +8,12 @@ supersedes: "v0.3.1"
 
 # DECISIONS.md
 
+### Propósito de este documento
+
+- **Objetivos:** Registro de ADRs con IDs estables (fuente de verdad; no se mueve a `docs/architecture/decisions/`).
+- **Estructura:** Propósito → convenciones → ADR-0001… en `<details>`.
+- **Contenido a integrar según contexto:** Una decisión aceptada no se reescribe: se sustituye. No copies ADRs de otro repo. Confirmación humana antes de deps nuevas, majors, runners o `panic`/`profile`.
+
 **Versión:** 0.3.2  
 **Fecha:** 2026-09-09  
 **Canónico:** este archivo. [`docs/adr/README.md`](docs/adr/README.md) conserva el texto histórico de ADR-0001…0005 y apunta aquí para IDs nuevos.
@@ -300,5 +306,20 @@ supersedes: "v0.3.1"
   - Retirar Web Awesome ahora: es decisión de inventario (fase 2), no de pipeline.
 - Consecuencias: `make web-ci` incluye check de artefactos + contraste. `apps/landing/` y `zedazo-api` no consumen estos tokens. PRs de CardDAV (#48) no tocan `tokens/` ni `design-system/`.
 - Relacionado: ADR-0015, ADR-0016, [SPECS.md](./SPECS.md) O10, [ROADMAP.md](./ROADMAP.md) v0.5.x, [docs/gui/design-system-plan.md](./docs/gui/design-system-plan.md), [#59](https://github.com/Iniciativas-Alexendros/zedazo/issues/59).
+
+</details>
+
+<details>
+<summary><strong>ADR-0020</strong> — Alineación P1+P2 (canon de flota) sin aplastar CI Rust</summary>
+
+- Estado: **aceptada**
+- Fecha: 2026-09-24
+- Contexto: Oleada de alineación a `Iniciativas-Alexendros/repo-standard` (main). Este repo ya es gold en governance (dual license, CoC, Renovate, SPECS/ARCHITECTURE/AGENTS, jobs Rust maduros). El canon pide jobs `quality` / `test` / `smoke` y meta-sección **Propósito**. Reescribir `fmt`/`clippy`/`test`/`check`/`parity`/`web` rompería CI.
+- Decisión:
+  1. Añadir wrappers `quality` (fmt+clippy+docs-validate) y `smoke` (health+check). El job `test` ya es canónico.
+  2. Documentar la equivalencia en [`AGENTS.md`](./AGENTS.md). No mover ADRs fuera de este archivo.
+  3. Conservar dual license MIT OR Apache-2.0, CoC y Renovate.
+- Consecuencias: `make ci` no cambia. Los wrappers solo agregan estado. Sin force-push ni org settings.
+- Relacionado: [AGENTS.md](./AGENTS.md), [ARCHITECTURE.md](./ARCHITECTURE.md), [SPECS.md](./SPECS.md), [ROADMAP.md](./ROADMAP.md).
 
 </details>

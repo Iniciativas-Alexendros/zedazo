@@ -8,6 +8,12 @@ supersedes: "v0.3.1"
 
 # Zedazo — Arquitectura
 
+### Propósito de este documento
+
+- **Objetivos:** Describir capas Clean/DDD, CI/CD y límites de crates de Zedazo.
+- **Estructura:** Propósito → principios → CI/CD → capas → workspace → invariantes.
+- **Contenido a integrar según contexto:** Conserva la arquitectura Rust/GUI de este repo. No copies un diagrama de landing/SaaS. Los jobs canónicos `quality` / `test` / `smoke` son wrappers; no reescribas `fmt`, `clippy`, `check`, `parity` ni `web`.
+
 **Versión:** 0.3.2
 **Fecha:** 2026-09-09
 **Canónico:** este archivo. [`docs/architecture.md`](docs/architecture.md) redirige aquí.
@@ -29,7 +35,7 @@ El proyecto usa **GitHub Actions** en **`ubuntu-latest`**. ADR-0008 prefiere run
 
 | Workflow          | Trigger                    | Jobs                                     |
 | ----------------- | -------------------------- | ---------------------------------------- |
-| `ci.yml`          | push/PR a `main`           | Check, MSRV, Format, Clippy, Test, Doc, Coverage, Docs validate, Parity O10, Web |
+| `ci.yml`          | push/PR a `main`           | Jobs maduros (Check, MSRV, Format, Clippy, Test, Doc, Coverage, Docs validate, Parity O10, Web, Deny) + wrappers canónicos `quality` (fmt+clippy+docs-validate) y `smoke` (health+check). `test` ya es el nombre canónico. |
 | `audit.yml`       | Lunes 08:00 UTC; PR/push a lockfile/política | cargo audit (falla solo en vulns RustSec) |
 | `release.yml`     | Tag `v*`                   | Build + Package + Publish to crates.io   |
 | Renovate          | Schedule + PRs             | `.github/renovate.json` (no Dependabot)  |

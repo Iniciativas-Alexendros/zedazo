@@ -1,5 +1,11 @@
 # Política de Seguridad
 
+### Propósito de este documento
+
+- **Objetivos:** Canal privado para vulnerabilidades, versiones soportadas y consideraciones de VCF/API/CardDAV.
+- **Estructura:** Propósito → reporte → versiones → consideraciones.
+- **Contenido a integrar según contexto:** Conserva la política de `cargo audit` y ADR-0016/0018. No abras issue público para un aviso de seguridad. No copies un SECURITY de otro producto.
+
 ## Reportar vulnerabilidades
 
 Si descubres una vulnerabilidad de seguridad, por favor **no abras un issue público**.
