@@ -31,9 +31,9 @@ test("contraste sintético: par que falla 4.5:1", () => {
 });
 
 test("hex generado no es origen: canvas claro es OKLCH→sRGB", () => {
-  const hex = oklchToHex({ l: 0.985, c: 0.008, h: 92 });
+  const hex = oklchToHex({ l: 0.985, c: 0.008, h: 257 });
   assert.match(hex, /^#[0-9a-f]{6}$/);
-  assert.equal(hex, "#fcfaf4");
+  assert.equal(hex, "#f7faff");
 });
 
 test("pares semánticos light/dark cumplen el umbral WCAG 2.2", async () => {
@@ -52,7 +52,7 @@ test("themes generados conservan OKLCH públicos 1:1", async () => {
     "utf8",
   );
   for (const needle of [
-    "--zed-bg-canvas: oklch(0.985 0.008 92);",
+    "--zed-bg-canvas: oklch(0.985 0.008 257);",
     "--zed-accent: oklch(0.53 0.16 257);",
     "--zed-bg-canvas: oklch(0.16 0.025 258);",
     "--zed-accent: oklch(0.76 0.13 257);",
