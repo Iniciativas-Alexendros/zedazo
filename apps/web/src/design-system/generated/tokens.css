@@ -5,8 +5,8 @@
 
 :root {
   color-scheme: light dark;
-  --zed-font-ui: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --zed-font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --zed-font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --zed-font-mono: ui-monospace, "Fira Code", Consolas, monospace;
   --zed-text-xs: 0.8125rem;
   --zed-text-sm: 0.9375rem;
   --zed-text-base: 1.0625rem;

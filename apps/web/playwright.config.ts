@@ -11,7 +11,8 @@ export default defineConfig({
       animations: "disabled",
       caret: "hide",
       scale: "css",
-      maxDiffPixelRatio: 0.02,
+      // system-ui / stack del SO: AA tipográfica difiere entre runner CI y host local
+      maxDiffPixelRatio: 0.06,
     },
   },
   use: {

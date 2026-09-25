@@ -5,9 +5,9 @@
 
 :root,
 [data-theme="light"] {
-  --zed-bg-canvas: oklch(0.985 0.008 92);
-  --zed-bg-subtle: oklch(0.965 0.012 92);
-  --zed-bg-muted: oklch(0.93 0.018 92);
+  --zed-bg-canvas: oklch(0.985 0.008 257);
+  --zed-bg-subtle: oklch(0.965 0.012 257);
+  --zed-bg-muted: oklch(0.93 0.018 257);
   --zed-bg-raised: oklch(1 0 0);
   --zed-bg-inverse: oklch(0.22 0.035 258);
   --zed-overlay: oklch(0.18 0.04 258 / 0.45);
@@ -15,15 +15,15 @@
   --zed-fg-default: oklch(0.34 0.03 258);
   --zed-fg-muted: oklch(0.49 0.028 258);
   --zed-fg-subtle: oklch(0.61 0.022 258);
-  --zed-fg-inverse: oklch(0.98 0.006 92);
-  --zed-border-subtle: oklch(0.89 0.014 92);
-  --zed-border-default: oklch(0.81 0.022 92);
+  --zed-fg-inverse: oklch(0.98 0.006 257);
+  --zed-border-subtle: oklch(0.89 0.014 257);
+  --zed-border-default: oklch(0.81 0.022 257);
   --zed-border-strong: oklch(0.69 0.03 258);
   --zed-accent: oklch(0.53 0.16 257);
   --zed-accent-hover: oklch(0.47 0.16 257);
   --zed-accent-active: oklch(0.41 0.145 257);
   --zed-accent-soft: oklch(0.93 0.045 257);
-  --zed-accent-on: oklch(0.985 0.008 92);
+  --zed-accent-on: oklch(0.985 0.008 257);
   --zed-accent-border: oklch(0.53 0.16 257 / 0.28);
   --zed-success: oklch(0.48 0.115 157);
   --zed-success-hover: oklch(0.42 0.105 157);
@@ -45,7 +45,7 @@
   --zed-selection-bg: oklch(0.87 0.075 257);
   --zed-selection-fg: oklch(0.24 0.05 257);
   --zed-code-bg: oklch(0.22 0.03 258);
-  --zed-code-fg: oklch(0.92 0.02 92);
+  --zed-code-fg: oklch(0.92 0.02 257);
   --zed-badge-success-border: oklch(0.48 0.115 157 / 0.32);
   --zed-badge-warning-border: oklch(0.58 0.13 78 / 0.35);
   --zed-badge-danger-border: oklch(0.52 0.16 25 / 0.32);
@@ -57,9 +57,9 @@
   --zed-bg-subtle: oklch(0.19 0.028 258);
   --zed-bg-muted: oklch(0.24 0.032 258);
   --zed-bg-raised: oklch(0.215 0.028 258);
-  --zed-bg-inverse: oklch(0.96 0.012 92);
+  --zed-bg-inverse: oklch(0.96 0.012 257);
   --zed-overlay: oklch(0.18 0.04 258 / 0.45);
-  --zed-fg-strong: oklch(0.95 0.012 92);
+  --zed-fg-strong: oklch(0.95 0.012 257);
   --zed-fg-default: oklch(0.86 0.018 250);
   --zed-fg-muted: oklch(0.71 0.025 250);
   --zed-fg-subtle: oklch(0.58 0.03 250);
@@ -91,9 +91,9 @@
   --zed-info-on-soft: oklch(0.89 0.05 228);
   --zed-focus-ring: oklch(0.79 0.14 257);
   --zed-selection-bg: oklch(0.37 0.09 257);
-  --zed-selection-fg: oklch(0.95 0.012 92);
+  --zed-selection-fg: oklch(0.95 0.012 257);
   --zed-code-bg: oklch(0.14 0.025 258);
-  --zed-code-fg: oklch(0.9 0.02 92);
+  --zed-code-fg: oklch(0.9 0.02 257);
   --zed-badge-success-border: oklch(0.76 0.105 157 / 0.32);
   --zed-badge-warning-border: oklch(0.8 0.13 86 / 0.35);
   --zed-badge-danger-border: oklch(0.77 0.13 25 / 0.32);

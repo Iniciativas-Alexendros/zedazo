@@ -7,8 +7,8 @@
 
 :root {
   color-scheme: light dark;
-  --zed-font-ui: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --zed-font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --zed-font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --zed-font-mono: ui-monospace, "Fira Code", Consolas, monospace;
   --zed-text-xs: 0.8125rem;
   --zed-text-sm: 0.9375rem;
   --zed-text-base: 1.0625rem;
@@ -90,19 +90,19 @@
 @supports not (color: oklch(0 0 0)) {
   :root {
   --color-action-focus-ring: #2c7de9;
-  --color-action-on-primary: #fcfaf4;
+  --color-action-on-primary: #f7faff;
   --color-action-on-secondary: #101b2b;
   --color-action-primary-bg: #2369c6;
   --color-action-primary-bg-hover: #0a57b2;
   --color-action-secondary-bg: #ffffff;
-  --color-bg-base: #fcfaf4;
+  --color-bg-base: #f7faff;
   --color-bg-code: #121b28;
-  --color-bg-muted: #ece8db;
-  --color-bg-subtle: #f6f3eb;
+  --color-bg-muted: #e0e9f4;
+  --color-bg-subtle: #eef4fc;
   --color-bg-surface: #ffffff;
-  --color-border-base: #c6c1b1;
+  --color-border-base: #b8c2cf;
   --color-border-strong: #909cae;
-  --color-border-subtle: #dedbd1;
+  --color-border-subtle: #d5dbe4;
   --color-feedback-danger-bg: #ffe9e6;
   --color-feedback-danger-text: #5c1717;
   --color-feedback-success-bg: #d6f4e1;
@@ -112,7 +112,7 @@
   --color-text-base: #2e3948;
   --color-text-link: #2369c6;
   --color-text-muted: #576171;
-  --color-text-on-code: #e9e4d6;
+  --color-text-on-code: #dce5f2;
   --color-text-strong: #101b2b;
   --zed-shadow-md: 0 12px 32px rgb(5 18 35 / 0.12);
   --zed-shadow-sm: 0 2px 8px rgb(5 18 35 / 0.08);
@@ -123,7 +123,7 @@
       color-scheme: dark;
   --color-action-focus-ring: #8ebdff;
   --color-action-on-primary: #09121f;
-  --color-action-on-secondary: #f1eee6;
+  --color-action-on-secondary: #e9eff7;
   --color-action-primary-bg: #7db3ff;
   --color-action-primary-bg-hover: #9fc7ff;
   --color-action-secondary-bg: #111a26;
@@ -144,15 +144,15 @@
   --color-text-base: #c8d2dd;
   --color-text-link: #7db3ff;
   --color-text-muted: #96a3b1;
-  --color-text-on-code: #e3decf;
-  --color-text-strong: #f1eee6;
+  --color-text-on-code: #d6dfec;
+  --color-text-strong: #e9eff7;
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
   --color-action-focus-ring: #8ebdff;
   --color-action-on-primary: #09121f;
-  --color-action-on-secondary: #f1eee6;
+  --color-action-on-secondary: #e9eff7;
   --color-action-primary-bg: #7db3ff;
   --color-action-primary-bg-hover: #9fc7ff;
   --color-action-secondary-bg: #111a26;
@@ -173,25 +173,25 @@
   --color-text-base: #c8d2dd;
   --color-text-link: #7db3ff;
   --color-text-muted: #96a3b1;
-  --color-text-on-code: #e3decf;
-  --color-text-strong: #f1eee6;
+  --color-text-on-code: #d6dfec;
+  --color-text-strong: #e9eff7;
   }
   :root[data-theme="light"] {
     color-scheme: light;
   --color-action-focus-ring: #2c7de9;
-  --color-action-on-primary: #fcfaf4;
+  --color-action-on-primary: #f7faff;
   --color-action-on-secondary: #101b2b;
   --color-action-primary-bg: #2369c6;
   --color-action-primary-bg-hover: #0a57b2;
   --color-action-secondary-bg: #ffffff;
-  --color-bg-base: #fcfaf4;
+  --color-bg-base: #f7faff;
   --color-bg-code: #121b28;
-  --color-bg-muted: #ece8db;
-  --color-bg-subtle: #f6f3eb;
+  --color-bg-muted: #e0e9f4;
+  --color-bg-subtle: #eef4fc;
   --color-bg-surface: #ffffff;
-  --color-border-base: #c6c1b1;
+  --color-border-base: #b8c2cf;
   --color-border-strong: #909cae;
-  --color-border-subtle: #dedbd1;
+  --color-border-subtle: #d5dbe4;
   --color-feedback-danger-bg: #ffe9e6;
   --color-feedback-danger-text: #5c1717;
   --color-feedback-success-bg: #d6f4e1;
@@ -201,7 +201,7 @@
   --color-text-base: #2e3948;
   --color-text-link: #2369c6;
   --color-text-muted: #576171;
-  --color-text-on-code: #e9e4d6;
+  --color-text-on-code: #dce5f2;
   --color-text-strong: #101b2b;
   --zed-shadow-md: 0 12px 32px rgb(5 18 35 / 0.12);
   --zed-shadow-sm: 0 2px 8px rgb(5 18 35 / 0.08);
@@ -212,19 +212,19 @@
 @supports (color: oklch(0 0 0)) {
   :root {
   --color-action-focus-ring: oklch(0.6 0.18 257);
-  --color-action-on-primary: oklch(0.985 0.008 92);
+  --color-action-on-primary: oklch(0.985 0.008 257);
   --color-action-on-secondary: oklch(0.22 0.035 258);
   --color-action-primary-bg: oklch(0.53 0.16 257);
   --color-action-primary-bg-hover: oklch(0.47 0.16 257);
   --color-action-secondary-bg: oklch(1 0 0);
-  --color-bg-base: oklch(0.985 0.008 92);
+  --color-bg-base: oklch(0.985 0.008 257);
   --color-bg-code: oklch(0.22 0.03 258);
-  --color-bg-muted: oklch(0.93 0.018 92);
-  --color-bg-subtle: oklch(0.965 0.012 92);
+  --color-bg-muted: oklch(0.93 0.018 257);
+  --color-bg-subtle: oklch(0.965 0.012 257);
   --color-bg-surface: oklch(1 0 0);
-  --color-border-base: oklch(0.81 0.022 92);
+  --color-border-base: oklch(0.81 0.022 257);
   --color-border-strong: oklch(0.69 0.03 258);
-  --color-border-subtle: oklch(0.89 0.014 92);
+  --color-border-subtle: oklch(0.89 0.014 257);
   --color-feedback-danger-bg: oklch(0.95 0.045 25);
   --color-feedback-danger-text: oklch(0.32 0.1 25);
   --color-feedback-success-bg: oklch(0.94 0.04 157);
@@ -234,7 +234,7 @@
   --color-text-base: oklch(0.34 0.03 258);
   --color-text-link: oklch(0.53 0.16 257);
   --color-text-muted: oklch(0.49 0.028 258);
-  --color-text-on-code: oklch(0.92 0.02 92);
+  --color-text-on-code: oklch(0.92 0.02 257);
   --color-text-strong: oklch(0.22 0.035 258);
   --zed-shadow-md: 0 12px 32px oklch(0.18 0.04 255 / 0.12);
   --zed-shadow-sm: 0 2px 8px oklch(0.18 0.04 255 / 0.08);
@@ -245,7 +245,7 @@
       color-scheme: dark;
   --color-action-focus-ring: oklch(0.79 0.14 257);
   --color-action-on-primary: oklch(0.18 0.03 258);
-  --color-action-on-secondary: oklch(0.95 0.012 92);
+  --color-action-on-secondary: oklch(0.95 0.012 257);
   --color-action-primary-bg: oklch(0.76 0.13 257);
   --color-action-primary-bg-hover: oklch(0.82 0.12 257);
   --color-action-secondary-bg: oklch(0.215 0.028 258);
@@ -266,15 +266,15 @@
   --color-text-base: oklch(0.86 0.018 250);
   --color-text-link: oklch(0.76 0.13 257);
   --color-text-muted: oklch(0.71 0.025 250);
-  --color-text-on-code: oklch(0.9 0.02 92);
-  --color-text-strong: oklch(0.95 0.012 92);
+  --color-text-on-code: oklch(0.9 0.02 257);
+  --color-text-strong: oklch(0.95 0.012 257);
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
   --color-action-focus-ring: oklch(0.79 0.14 257);
   --color-action-on-primary: oklch(0.18 0.03 258);
-  --color-action-on-secondary: oklch(0.95 0.012 92);
+  --color-action-on-secondary: oklch(0.95 0.012 257);
   --color-action-primary-bg: oklch(0.76 0.13 257);
   --color-action-primary-bg-hover: oklch(0.82 0.12 257);
   --color-action-secondary-bg: oklch(0.215 0.028 258);
@@ -295,25 +295,25 @@
   --color-text-base: oklch(0.86 0.018 250);
   --color-text-link: oklch(0.76 0.13 257);
   --color-text-muted: oklch(0.71 0.025 250);
-  --color-text-on-code: oklch(0.9 0.02 92);
-  --color-text-strong: oklch(0.95 0.012 92);
+  --color-text-on-code: oklch(0.9 0.02 257);
+  --color-text-strong: oklch(0.95 0.012 257);
   }
   :root[data-theme="light"] {
     color-scheme: light;
   --color-action-focus-ring: oklch(0.6 0.18 257);
-  --color-action-on-primary: oklch(0.985 0.008 92);
+  --color-action-on-primary: oklch(0.985 0.008 257);
   --color-action-on-secondary: oklch(0.22 0.035 258);
   --color-action-primary-bg: oklch(0.53 0.16 257);
   --color-action-primary-bg-hover: oklch(0.47 0.16 257);
   --color-action-secondary-bg: oklch(1 0 0);
-  --color-bg-base: oklch(0.985 0.008 92);
+  --color-bg-base: oklch(0.985 0.008 257);
   --color-bg-code: oklch(0.22 0.03 258);
-  --color-bg-muted: oklch(0.93 0.018 92);
-  --color-bg-subtle: oklch(0.965 0.012 92);
+  --color-bg-muted: oklch(0.93 0.018 257);
+  --color-bg-subtle: oklch(0.965 0.012 257);
   --color-bg-surface: oklch(1 0 0);
-  --color-border-base: oklch(0.81 0.022 92);
+  --color-border-base: oklch(0.81 0.022 257);
   --color-border-strong: oklch(0.69 0.03 258);
-  --color-border-subtle: oklch(0.89 0.014 92);
+  --color-border-subtle: oklch(0.89 0.014 257);
   --color-feedback-danger-bg: oklch(0.95 0.045 25);
   --color-feedback-danger-text: oklch(0.32 0.1 25);
   --color-feedback-success-bg: oklch(0.94 0.04 157);
@@ -323,7 +323,7 @@
   --color-text-base: oklch(0.34 0.03 258);
   --color-text-link: oklch(0.53 0.16 257);
   --color-text-muted: oklch(0.49 0.028 258);
-  --color-text-on-code: oklch(0.92 0.02 92);
+  --color-text-on-code: oklch(0.92 0.02 257);
   --color-text-strong: oklch(0.22 0.035 258);
   --zed-shadow-md: 0 12px 32px oklch(0.18 0.04 255 / 0.12);
   --zed-shadow-sm: 0 2px 8px oklch(0.18 0.04 255 / 0.08);

@@ -162,12 +162,12 @@ export type ZedCssVarName = keyof typeof zedCssVars;
 
 /** Hex generado desde OKLCH (theme-color / favicon). No es origen. */
 export const themeColorHex = {
-  light: "#fcfaf4",
+  light: "#f7faff",
   dark: "#070d18",
 } as const;
 
 /** Hex generado desde accent / accent-on (tema claro) para el favicon. */
 export const faviconHex = {
   background: "#2369c6",
-  foreground: "#fcfaf4",
+  foreground: "#f7faff",
 } as const;
