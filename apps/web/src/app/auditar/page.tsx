@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { createAudit, uploadVcf } from "@/lib/api";
+import { createAudit, uploadVcf } from "@/lib/data-adapter";
 import { PageHeader } from "@/components/shell/page-header";
 import { Card } from "@/components/ui/card";
 import { Callout } from "@/components/ui/callout";

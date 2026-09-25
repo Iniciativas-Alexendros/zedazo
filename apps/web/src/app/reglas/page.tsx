@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { validateRules } from "@/lib/api";
+import { validateRules } from "@/lib/data-adapter";
 import { PageHeader } from "@/components/shell/page-header";
 import { Card } from "@/components/ui/card";
 import { Callout } from "@/components/ui/callout";

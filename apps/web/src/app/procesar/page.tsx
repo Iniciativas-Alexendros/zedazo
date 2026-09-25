@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  cancelJob,
-  createJob,
-  isCancellableStatus,
-  isTerminalStatus,
-  uploadVcf,
-  type JobManifest,
-} from "@/lib/api";
+import { isCancellableStatus, isTerminalStatus, type JobManifest } from "@/lib/api";
+import { cancelJob, createJob, uploadVcf } from "@/lib/data-adapter";
 import { useJobEvents } from "@/lib/hooks/use-job-events";
 import { PageHeader } from "@/components/shell/page-header";
 import { ProgressStepper } from "@/components/ui/progress-stepper";

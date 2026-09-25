@@ -10,8 +10,8 @@
     />
     <link rel="canonical" href="https://zedazo.alexendros.dev/" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#faf8f2" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1a1f2e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfaf4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#070d18" media="(prefers-color-scheme: dark)" />
     <meta property="og:title" content="zedazo" />
     <meta
       property="og:description"
@@ -21,253 +21,25 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta name="twitter:card" content="summary" />
-    <style>
-      :root {
-        color-scheme: light dark;
-        --zed-font-ui: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible",
-          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --zed-font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace,
-          SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        --zed-bg-canvas: oklch(0.985 0.008 92);
-        --zed-bg-raised: oklch(1 0 0);
-        --zed-bg-subtle: oklch(0.965 0.012 92);
-        --zed-fg-strong: oklch(0.22 0.035 258);
-        --zed-fg-default: oklch(0.34 0.03 258);
-        --zed-fg-muted: oklch(0.49 0.028 258);
-        --zed-border: oklch(0.81 0.022 92);
-        --zed-accent: oklch(0.53 0.16 257);
-        --zed-accent-hover: oklch(0.47 0.16 257);
-        --zed-accent-on: oklch(0.985 0.008 92);
-        --zed-accent-soft: oklch(0.93 0.045 257);
-        --zed-code-bg: oklch(0.22 0.03 258);
-        --zed-code-fg: oklch(0.92 0.02 92);
-        --zed-shadow: 0 12px 32px oklch(0.18 0.04 255 / 0.12);
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --zed-bg-canvas: oklch(0.16 0.025 258);
-          --zed-bg-raised: oklch(0.215 0.028 258);
-          --zed-bg-subtle: oklch(0.19 0.028 258);
-          --zed-fg-strong: oklch(0.95 0.012 92);
-          --zed-fg-default: oklch(0.86 0.018 250);
-          --zed-fg-muted: oklch(0.71 0.025 250);
-          --zed-border: oklch(0.36 0.035 258);
-          --zed-accent: oklch(0.76 0.13 257);
-          --zed-accent-hover: oklch(0.82 0.12 257);
-          --zed-accent-on: oklch(0.18 0.03 258);
-          --zed-accent-soft: oklch(0.3 0.07 257);
-          --zed-code-bg: oklch(0.22 0.03 258);
-          --zed-code-fg: oklch(0.92 0.02 92);
-          --zed-shadow: 0 12px 32px oklch(0.08 0.03 258 / 0.45);
+    <link rel="stylesheet" href="./tokens.css" />
+    <link rel="stylesheet" href="./landing.css" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("zedazo-theme");
+          if (theme === "light" || theme === "dark") {
+            document.documentElement.setAttribute("data-theme", theme);
+          }
+        } catch (e) {
+          /* sin almacenamiento: sigue el esquema del sistema */
         }
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        font-family: var(--zed-font-ui);
-        background: var(--zed-bg-canvas);
-        color: var(--zed-fg-default);
-        line-height: 1.55;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-      }
-
-      a {
-        color: var(--zed-accent);
-      }
-
-      a:hover {
-        color: var(--zed-accent-hover);
-      }
-
-      a:focus-visible {
-        outline: 3px solid var(--zed-accent);
-        outline-offset: 2px;
-      }
-
-      .skip {
-        position: absolute;
-        left: 0.75rem;
-        top: -3rem;
-        background: var(--zed-accent);
-        color: var(--zed-accent-on);
-        padding: 0.4rem 0.75rem;
-        border-radius: 0.4rem;
-        z-index: 2;
-      }
-
-      .skip:focus {
-        top: 0.75rem;
-      }
-
-      .wrap {
-        width: min(46rem, calc(100% - 2rem));
-        margin: 0 auto;
-        padding: 2.5rem 0 3.5rem;
-      }
-
-      header {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 2.5rem;
-      }
-
-      .mark {
-        width: 2rem;
-        height: 2rem;
-        color: var(--zed-accent);
-        flex: none;
-      }
-
-      .wordmark {
-        font-weight: 700;
-        font-size: 1.25rem;
-        letter-spacing: -0.02em;
-        color: var(--zed-fg-strong);
-      }
-
-      h1 {
-        font-size: clamp(2rem, 5vw, 2.75rem);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-        color: var(--zed-fg-strong);
-        margin: 0 0 1rem;
-        font-weight: 700;
-      }
-
-      .lede {
-        font-size: 1.1875rem;
-        margin: 0 0 1.75rem;
-        max-width: 40rem;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-bottom: 2.5rem;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.75rem;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        font-weight: 600;
-        border: 1px solid transparent;
-      }
-
-      .btn-primary {
-        background: var(--zed-accent);
-        color: var(--zed-accent-on);
-      }
-
-      .btn-primary:hover {
-        background: var(--zed-accent-hover);
-        color: var(--zed-accent-on);
-      }
-
-      .btn-secondary {
-        background: var(--zed-bg-raised);
-        color: var(--zed-fg-strong);
-        border-color: var(--zed-border);
-      }
-
-      .btn-secondary:hover {
-        background: var(--zed-bg-subtle);
-        color: var(--zed-fg-strong);
-      }
-
-      .panel {
-        background: var(--zed-bg-raised);
-        border: 1px solid var(--zed-border);
-        border-radius: 1rem;
-        padding: 1.25rem 1.35rem;
-        box-shadow: var(--zed-shadow);
-        margin-bottom: 1.5rem;
-      }
-
-      h2 {
-        margin: 0 0 0.75rem;
-        font-size: 1.2rem;
-        color: var(--zed-fg-strong);
-      }
-
-      .muted {
-        color: var(--zed-fg-muted);
-      }
-
-      ul.facts {
-        margin: 0;
-        padding-left: 1.15rem;
-      }
-
-      ul.facts li {
-        margin: 0.35rem 0;
-      }
-
-      pre {
-        margin: 0;
-        overflow-x: auto;
-        background: var(--zed-code-bg);
-        color: var(--zed-code-fg);
-        border-radius: 0.75rem;
-        padding: 1rem 1.1rem;
-        font-family: var(--zed-font-mono);
-        font-size: 0.9rem;
-        line-height: 1.45;
-      }
-
-      .links {
-        display: grid;
-        gap: 0.65rem;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .links a {
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      .links span {
-        display: block;
-        font-weight: 400;
-        color: var(--zed-fg-muted);
-        font-size: 0.95rem;
-      }
-
-      .note {
-        background: var(--zed-accent-soft);
-        border-radius: 0.75rem;
-        padding: 1rem 1.15rem;
-        margin: 1.5rem 0 0;
-      }
-
-      footer {
-        margin-top: 2.5rem;
-        color: var(--zed-fg-muted);
-        font-size: 0.95rem;
-      }
-    </style>
+      })();
+    </script>
   </head>
   <body>
     <a class="skip" href="#contenido">Saltar al contenido</a>
     <div class="wrap">
-      <header>
+      <header class="site-header">
         <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
           <path
             d="M8 7h12L10 16h11"
@@ -287,61 +59,152 @@
             stroke-linecap="round"
           />
         </svg>
-        <span class="wordmark">zedazo</span>
+        <h1 class="wordmark">zedazo</h1>
+        <div class="header-actions">
+          <button type="button" class="theme-toggle" id="tema">Tema: sistema</button>
+        </div>
       </header>
 
+      <nav aria-label="Secciones">
+        <ul class="section-nav">
+          <li><a href="#propuesta">Propuesta</a></li>
+          <li><a href="#caracteristicas">Características</a></li>
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#cierre">Cierre</a></li>
+        </ul>
+      </nav>
+
       <main id="contenido">
-        <h1>Tu agenda, pasada por el zedazo fino.</h1>
-        <p class="lede">
-          Criba, normaliza, clasifica y deduplica contactos VCF exportados desde
-          ProtonMail, Google Contacts o Apple iCloud. Reglas deterministas,
-          auditoría trazable y procesamiento local: no es un SaaS ni una nube
-          de agendas.
-        </p>
+        <section id="propuesta" aria-labelledby="propuesta-titulo">
+          <h2 id="propuesta-titulo">Propuesta</h2>
+          <p class="lede">Tu agenda, pasada por el zedazo fino.</p>
+          <p>
+            Zedazo criba, normaliza, clasifica y deduplica contactos VCF
+            exportados desde ProtonMail, Google Contacts o Apple iCloud. Reglas
+            deterministas, auditoría trazable y procesamiento local: no es un
+            SaaS ni una nube de agendas.
+          </p>
+          <p class="actions">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/Iniciativas-Alexendros/zedazo"
+              rel="noopener noreferrer"
+              >Código en GitHub</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://crates.io/crates/zedazo"
+              rel="noopener noreferrer"
+              >Crate en crates.io</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://docs.rs/zedazo"
+              rel="noopener noreferrer"
+              >docs.rs</a
+            >
+          </p>
+        </section>
 
-        <p class="actions">
-          <a
-            class="btn btn-primary"
-            href="https://github.com/Iniciativas-Alexendros/zedazo"
-            rel="noopener noreferrer"
-            >Código en GitHub</a
-          >
-          <a
-            class="btn btn-secondary"
-            href="https://crates.io/crates/zedazo"
-            rel="noopener noreferrer"
-            >Crate en crates.io</a
-          >
-          <a
-            class="btn btn-secondary"
-            href="https://docs.rs/zedazo"
-            rel="noopener noreferrer"
-            >docs.rs</a
-          >
-        </p>
-
-        <section class="panel" aria-labelledby="que-hace">
-          <h2 id="que-hace">Qué hace</h2>
-          <ul class="facts">
-            <li>Pipeline VCF: parsear, normalizar, clasificar, cribar y deduplicar.</li>
-            <li>CLI oficial de automatización (<code>cargo install zedazo</code>).</li>
-            <li>
-              GUI + API self-hosted en tu máquina (loopback o remoto con HTTPS y
-              token). Esta URL es la ficha pública del producto, no la interfaz
-              de cribado.
+        <section id="caracteristicas" aria-labelledby="caracteristicas-titulo">
+          <h2 id="caracteristicas-titulo">Características</h2>
+          <ul class="grid">
+            <li class="panel">
+              <h3>Local por defecto</h3>
+              <p class="muted">
+                El cribado corre en tu máquina. Esta ficha no recibe agendas.
+              </p>
             </li>
-            <li>Licencia dual MIT OR Apache-2.0. MSRV Rust 1.80+.</li>
+            <li class="panel">
+              <h3>Determinista</h3>
+              <p class="muted">
+                Mismas reglas, mismo resultado. La auditoría deja constancia de
+                cada decisión.
+              </p>
+            </li>
+            <li class="panel">
+              <h3>Self-hosted</h3>
+              <p class="muted">
+                CLI para automatizar. GUI y API en loopback, o remoto con HTTPS
+                y token (ADR-0016).
+              </p>
+            </li>
+            <li class="panel">
+              <h3>Código abierto</h3>
+              <p class="muted">Licencia dual MIT OR Apache-2.0. MSRV Rust 1.80+.</p>
+            </li>
           </ul>
         </section>
 
-        <section class="panel" aria-labelledby="instalar">
-          <h2 id="instalar">Instalar y cribar</h2>
-          <pre><code>cargo install zedazo
+        <section id="funcionalidades" aria-labelledby="funcionalidades-titulo">
+          <h2 id="funcionalidades-titulo">Funcionalidades</h2>
+          <div class="panel">
+            <h3>Pipeline VCF</h3>
+            <ol class="steps">
+              <li>Parsear vCard 3.0 y 4.0 (Proton, Google, Apple).</li>
+              <li>Normalizar nombres, teléfonos y organizaciones.</li>
+              <li>Clasificar, cribar y deduplicar con reglas TOML.</li>
+              <li>Escribir VCF limpio y auditoría TSV, CSV o JSON.</li>
+            </ol>
+          </div>
+          <div class="panel">
+            <h3>CLI</h3>
+            <pre><code>cargo install zedazo
 zedazo cribar contactos.vcf -o limpio.vcf -a auditoria.tsv</code></pre>
+            <p class="muted">
+              También <code>audit</code>, <code>stats</code>, <code>export</code> y
+              <code>completions</code>. CardDAV (pull, escritura opt-in, watch)
+              vive en la CLI, no en esta página.
+            </p>
+          </div>
+          <div class="panel">
+            <h3>GUI</h3>
+            <ul class="facts">
+              <li>Procesar, ejecuciones, auditar, reglas y ajustes.</li>
+              <li>Paridad funcional con la CLI, salvo el autocompletado de shell.</li>
+              <li>
+                Sin API, la interfaz muestra fixtures sintéticos. Un VCF real
+                sigue exigiendo <code>zedazo-api</code>.
+              </li>
+            </ul>
+          </div>
         </section>
 
-        <section class="panel" aria-labelledby="enlaces">
-          <h2 id="enlaces">Enlaces</h2>
+        <section id="roadmap" aria-labelledby="roadmap-titulo">
+          <h2 id="roadmap-titulo">Roadmap</h2>
+          <p class="muted">
+            Estado honesto del repositorio. No es una promesa de fecha.
+          </p>
+          <ul class="roadmap">
+            <li>
+              <span class="tag tag-done">Hecho</span>
+              CLI de cribado, GUI y API self-hosted, remoto HTTPS + token,
+              design system OKLCH.
+            </li>
+            <li>
+              <span class="tag tag-done">Hecho en CLI</span>
+              CardDAV: listar, pull, escritura con confirmación y watch. La GUI
+              no sincroniza libretas.
+            </li>
+            <li>
+              <span class="tag tag-now">Pendiente humano</span>
+              Tag <code>v0.5.1</code> y publicación en crates.io. El CNAME de
+              zedazo.alexendros.dev lo crea el operador.
+            </li>
+            <li>
+              <span class="tag tag-later">v1.0</span>
+              API de crate estable, benchmarks y corpus de regresión grande.
+            </li>
+            <li>
+              <span class="tag tag-later">Aplazado</span>
+              OpenTelemetry opt-in. No hay PWA ni notificaciones.
+            </li>
+          </ul>
+        </section>
+
+        <section id="cierre" aria-labelledby="cierre-titulo">
+          <h2 id="cierre-titulo">Cierre</h2>
           <ul class="links">
             <li>
               <a
@@ -383,21 +246,62 @@ zedazo cribar contactos.vcf -o limpio.vcf -a auditoria.tsv</code></pre>
               >
             </li>
           </ul>
+          <p class="note muted">
+            Wordmark en minúsculas: <strong>zedazo.alexendros.dev</strong> (ADR-0014).
+            La GUI remota, si se sirve en este mismo host, exige same-origin
+            (Caddy: <code>/</code> → web, <code>/api/*</code> → api; ADR-0016).
+            Esta URL no procesa contactos.
+          </p>
         </section>
-
-        <p class="note muted">
-          Wordmark en minúsculas: <strong>zedazo.alexendros.dev</strong> (ADR-0014).
-          La GUI remota, si se sirve en este mismo host, exige same-origin
-          (Caddy: <code>/</code> → web, <code>/api/*</code> → api; ADR-0016).
-        </p>
       </main>
 
-      <footer>
+      <footer class="site-footer">
         <p>
           Iniciativas Alexendros · código abierto · no almacena agendas en este
           dominio.
         </p>
       </footer>
     </div>
+    <script>
+      (function () {
+        var key = "zedazo-theme";
+        var root = document.documentElement;
+        var button = document.getElementById("tema");
+        if (!button) return;
+
+        function mode() {
+          return root.getAttribute("data-theme") || "system";
+        }
+
+        function paint() {
+          var current = mode();
+          button.textContent =
+            current === "light"
+              ? "Tema: claro"
+              : current === "dark"
+                ? "Tema: oscuro"
+                : "Tema: sistema";
+        }
+
+        paint();
+        button.addEventListener("click", function () {
+          var current = mode();
+          var next = current === "system" ? "light" : current === "light" ? "dark" : "system";
+          try {
+            if (next === "system") {
+              root.removeAttribute("data-theme");
+              localStorage.removeItem(key);
+            } else {
+              root.setAttribute("data-theme", next);
+              localStorage.setItem(key, next);
+            }
+          } catch (e) {
+            if (next === "system") root.removeAttribute("data-theme");
+            else root.setAttribute("data-theme", next);
+          }
+          paint();
+        });
+      })();
+    </script>
   </body>
 </html>

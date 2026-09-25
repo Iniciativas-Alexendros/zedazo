@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { listJobs, type JobManifest } from "@/lib/api";
+import type { JobManifest } from "@/lib/api";
+import { listJobs } from "@/lib/data-adapter";
 import { PageHeader } from "@/components/shell/page-header";
 import { JobStatus } from "@/components/jobs/job-status";
 import { JobRowActions } from "@/components/jobs/job-row-actions";

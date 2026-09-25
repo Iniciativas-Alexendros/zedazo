@@ -23,7 +23,7 @@ web-ci: ## Tokens check/contraste + lint + typecheck + unit tests + build + Play
 	cd apps/web && ./node_modules/.bin/next lint
 	cd apps/web && node scripts/design-tokens/build.mjs --check
 	cd apps/web && node scripts/design-tokens/contrast.mjs
-	cd apps/web && node --test src/lib/api.test.mjs src/lib/design-tokens-contrast.test.mjs src/lib/atoms-contract.test.mjs
+	cd apps/web && node --test src/lib/api.test.mjs src/lib/design-tokens-contrast.test.mjs src/lib/atoms-contract.test.mjs src/lib/local-fixtures.test.mjs
 	cd apps/web && ./node_modules/.bin/next build
 	cd apps/web && ./node_modules/.bin/playwright install --with-deps chromium
 	cd apps/web && ./node_modules/.bin/playwright test --grep-invert screenshots
@@ -96,7 +96,9 @@ docs-validate: ## Valida documentación canónica (frontmatter, enlaces, stubs, 
 	@grep -q "https://docs.rs/zedazo" apps/landing/index.html || (echo "❌ landing: falta enlace docs.rs"; exit 1)
 	@grep -q "zedazo.alexendros.dev" apps/landing/index.html || (echo "❌ landing: falta wordmark de dominio"; exit 1)
 	@grep -q "zedazo.alexendros.dev" deploy/Caddyfile.landing || (echo "❌ Caddyfile.landing: falta hostname de producto"; exit 1)
-	@grep -q 'class="wordmark">zedazo</span>' apps/landing/index.html || (echo "❌ landing: wordmark no está en minúsculas"; exit 1)
+	@grep -Eq 'class="wordmark">zedazo</(span|h1)>' apps/landing/index.html || (echo "❌ landing: wordmark no está en minúsculas"; exit 1)
+	@grep -q 'href="./tokens.css"' apps/landing/index.html || (echo "❌ landing: no consume tokens.css generado"; exit 1)
+	@test -f apps/landing/tokens.css || (echo "❌ falta apps/landing/tokens.css (pnpm tokens:build)"; exit 1)
 	@grep -q 'ZEDAZO_WORDMARK = "zedazo"' apps/web/src/components/brand/zedazo-wordmark.tsx || (echo "❌ GUI: wordmark no está en minúsculas"; exit 1)
 	@test -f docs/brand.md || (echo "❌ falta docs/brand.md"; exit 1)
 	@echo "✓ Landing OK"

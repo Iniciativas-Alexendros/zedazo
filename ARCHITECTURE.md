@@ -73,7 +73,7 @@ Workspace (ADR-0015): `crates/zedazo-core`, `crates/zedazo-cli`, `crates/zedazo-
 CardDAV (v0.4.0, **ADR-0018** aceptada): crate `zedazo-carddav` (`publish = false`), cliente HTTP consumido por la CLI (`zedazo carddav list|pull|put|delete|watch`); **no** HTTP CardDAV en `zedazo-core` ni endpoints en `zedazo-api`/GUI. Guía: [`docs/carddav.md`](docs/carddav.md). Código de red en PRs distintos de dominio/UI.
 Ficha pública (ADR-0014 / #50): `apps/landing/` en `zedazo.alexendros.dev`; DNS y Caddy en [`docs/gui/deploy.md`](docs/gui/deploy.md).
 Jobs web: directorio aislado por ULID bajo `$ZEDAZO_DATA_DIR` con `manifest.json` y `events.ndjson`.
-Tokens GUI (ADR-0019): fuente DTCG [`apps/web/tokens/`](apps/web/tokens/) → `pnpm tokens:build` → `--zed-*` OKLCH + tipos TS; contraste WCAG 2.2 AA en `web-ci`. `apps/landing/` no consume este pipeline.
+Tokens GUI (ADR-0019): fuente DTCG [`apps/web/tokens/`](apps/web/tokens/) → `pnpm tokens:build` → `--zed-*` OKLCH + tipos TS; contraste WCAG 2.2 AA en `web-ci`. El contrato v1 ([`apps/web/tokens/CONTRACT.md`](apps/web/tokens/CONTRACT.md)) añade alias `bg` / `text` / `border` / `action` / `feedback` hacia esa paleta. `apps/landing/tokens.css` sale del mismo build.
 
 ### Auth y despliegue (ADR-0016)
 

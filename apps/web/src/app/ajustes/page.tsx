@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  API_BASE,
-  getHealth,
-  logoutSession,
-  wipeAllData,
-} from "@/lib/api";
+import { API_BASE } from "@/lib/api";
+import { logoutSession, readHealth, wipeAllData } from "@/lib/data-adapter";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/shell/page-header";
 import { Card } from "@/components/ui/card";
@@ -36,7 +32,7 @@ export default function AjustesPage() {
   }, []);
 
   useEffect(() => {
-    void getHealth()
+    void readHealth()
       .then((h) => setRaw(JSON.stringify(h, null, 2)))
       .catch((e) => setRaw(String(e)));
   }, []);
@@ -135,9 +131,11 @@ export default function AjustesPage() {
           <strong>
             {state === "connected"
               ? "API conectada"
-              : state === "disconnected"
-                ? "Sin conexión"
-                : "Comprobando…"}
+              : state === "local"
+                ? "Adaptador local"
+                : state === "disconnected"
+                  ? "Sin conexión"
+                  : "Comprobando…"}
           </strong>
         </p>
         {!httpsOk ? (
