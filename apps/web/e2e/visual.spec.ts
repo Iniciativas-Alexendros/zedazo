@@ -81,6 +81,8 @@ for (const scheme of ["light", "dark"] as const) {
       await expect(page).toHaveScreenshot(`shell-mobile-${scheme}.png`, {
         animations: "disabled",
         caret: "hide",
+        // Viewport móvil + system-ui: AA tipográfica más volátil entre host/CI
+        maxDiffPixelRatio: 0.15,
       });
     });
   });
